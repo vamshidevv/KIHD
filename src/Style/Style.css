@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Stardos+Stencil:wght@400;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: #474747;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  background-color: #f6f6f6;
+}
+
+#logo-name {
+  font-size: 1.7rem;
+  font-family: "Stardos Stencil", system-ui;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Heding css starts from here  */
+
+.heading {
+  text-align: center;
+  color: #474747;
+  padding: 20px 0;
+}
+.wlcm-txt {
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 28px;
+  color: #474747;
+  letter-spacing: 0.8px;
+}
+.text {
+  color: #787878;
+  font-weight: 400;
+  padding-top: 10px;
+}
+
+/* Heding css Ends  here  */
+
+/* aside css starts here  */
+
+.aside-txt {
+  padding: 16px;
+  margin: 40px 0;
+}
+
+.aside-txt p {
+  font-size: 1.1em;
+}
+
+.key-points {
+  list-style-type: square;
+  padding-left: 20px;
+}
+
+.key-points li {
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+  font-size: 1rem;
+}
+#mail {
+  color: #2f61a8;
+}
+
+#mail:hover {
+  color: #2e5d9ece;
+}
+
+/*  aside css ends here */
+
+/* Media queries for aside content */
+@media screen and (max-width: 990px) {
+  .asid-txt {
+    border: 2px solid purple !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
