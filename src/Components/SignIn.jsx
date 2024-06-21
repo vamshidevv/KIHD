@@ -9,8 +9,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Avatar } from "@mui/material";
+import axios from "axios";
 
 const validationSchema = yup.object({
   username: yup
@@ -34,7 +36,26 @@ export default function SignIn() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       setSubmitted(true);
-      alert(JSON.stringify(values, null, 2));
+      axios
+        .get("http://localhost:3000/user")
+        .then((res) => {
+          const userData = res.data;
+          console.log("===>", userData);
+          const foundUser = userData.find(
+            (user) =>
+              user.username === values.username &&
+              user.password === values.password
+          );
+          if (foundUser) {
+            alert("Login successful!");
+          } else {
+            alert("Invalid username or password");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          alert("An error occurred while logging in.");
+        });
     },
   });
 
@@ -138,9 +159,6 @@ export default function SignIn() {
               "& .MuiFormLabel-root.Mui-focused": {
                 color: "rgba(0, 0, 0, 0.54)",
               },
-              "& .MuiFormLabel-asterisk": {
-                display: "none",
-              },
             }}
           />
           <TextField
@@ -175,7 +193,13 @@ export default function SignIn() {
                       color: "#9d9d9d",
                     }}
                   >
-                    <LockOpenOutlinedIcon fontSize="medium" />
+                    {formik.touched.password &&
+                    !formik.errors.password &&
+                    formik.values.password.length >= 6 ? (
+                      <LockOpenOutlinedIcon fontSize="medium" />
+                    ) : (
+                      <LockOutlinedIcon fontSize="medium" />
+                    )}
                   </Avatar>
                 </Box>
               ),
@@ -210,9 +234,6 @@ export default function SignIn() {
               },
               "& .MuiFormLabel-root.Mui-focused": {
                 color: "rgba(0, 0, 0, 0.54)",
-              },
-              "& .MuiFormLabel-asterisk": {
-                display: "none",
               },
             }}
           />

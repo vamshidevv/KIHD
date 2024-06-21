@@ -1,5 +1,4 @@
 import { Container, Grid } from "@mui/material";
-import React from "react";
 import SignIn from "./SignIn";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -10,7 +9,7 @@ const Home = () => {
 
   return (
     <>
-      <section>
+      <section className="home-section" style={{ height: "100vh" }}>
         <div className="heading">
           <h3 className="wlcm-txt">Welcome to KoliInfotech Helpdesk (KIHD)</h3>
           <p className="text">IT, HR, Admin, DevOps/Release Engineering</p>
@@ -82,11 +81,10 @@ const Home = () => {
               sm={6}
               lg={4}
               sx={{
-                px: { xs: 0, sm: 0, lg: 0 },
-                my: 0,
+                my: { xs: 0, sm: 0, lg: 0 },
               }}
             >
-              <div className="form">
+              <div className="form ">
                 <SignIn />
               </div>
             </Grid>

@@ -19,6 +19,20 @@ body {
   letter-spacing: 0.5px;
 }
 
+.home-section {
+  animation: home 0.5s ease-out forwards;
+}
+
+@keyframes home {
+  0% {
+    transform: translateY(-5%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
 /* Heding css starts from here  */
 
 .heading {

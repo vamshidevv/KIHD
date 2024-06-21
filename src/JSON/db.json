@@ -1,0 +1,40 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "email": "john@gmail.com",
+      "username": "vamshi",
+      "password": "123456"
+    },
+    {
+      "id": 2,
+      "email": "morrison@gmail.com",
+      "username": "shivam",
+      "password": "789456"
+    },
+    {
+      "id": 3,
+      "email": "kevin@gmail.com",
+      "username": "kevinryan",
+      "password": "kev02937@"
+    },
+    {
+      "id": 4,
+      "email": "don@gmail.com",
+      "username": "donero",
+      "password": "ewedon"
+    },
+    {
+      "id": 5,
+      "email": "derek@gmail.com",
+      "username": "derek",
+      "password": "jklg*_56"
+    },
+    {
+      "id": 6,
+      "email": "david_r@gmail.com",
+      "username": "david_r",
+      "password": "3478*#54"
+    }
+  ]
+}
