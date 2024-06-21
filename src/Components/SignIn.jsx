@@ -1,6 +1,8 @@
 import * as React from "react";
+import { useState } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
@@ -10,10 +12,34 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Avatar } from "@mui/material";
 
+const validationSchema = yup.object({
+  username: yup
+    .string()
+    .required("User name is required")
+    .min(3, "User name should be at least 3 characters long"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(6, "Password should be at least 6 characters long"),
+});
+
 export default function SignIn() {
+  const [submitted, setSubmitted] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      setSubmitted(true);
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
     <Container component="main" maxWidth="l">
-      <CssBaseline />
       <Box
         sx={{
           display: "flex",
@@ -40,16 +66,31 @@ export default function SignIn() {
         >
           SIGN IN
         </Typography>
-        <Box component="form" noValidate sx={{ width: "100%" }}>
+        <Box
+          component="form"
+          onSubmit={formik.handleSubmit}
+          sx={{ width: "100%" }}
+        >
           <TextField
             margin="normal"
-            required
             fullWidth
             id="username"
-            label="User name"
             name="username"
+            label={
+              <div>
+                User name
+                {formik.errors.username && formik.touched.username && (
+                  <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+                )}
+              </div>
+            }
             autoComplete="username"
-            autoFocus
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onFocus={() => formik.setFieldTouched("username")}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+            helperText={formik.touched.username && formik.errors.username}
             InputProps={{
               endAdornment: (
                 <Box sx={{ display: "flex", alignItems: "center", pr: 1 }}>
@@ -68,31 +109,61 @@ export default function SignIn() {
             }}
             sx={{
               "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor:
+                    formik.errors.username && submitted
+                      ? "#f44336"
+                      : formik.touched.username && !formik.errors.username
+                      ? "#4caf50"
+                      : formik.touched.username
+                      ? "#2e5c9e61"
+                      : "gray",
+                },
                 "&:hover fieldset": {
-                  borderColor: "black",
+                  borderColor: "gray",
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: "#2e5c9e",
+                  borderColor:
+                    formik.errors.username && submitted
+                      ? "#d32f2f6e"
+                      : formik.touched.username && !formik.errors.username
+                      ? "#00800075"
+                      : "#2e5c9e61",
+                  borderWidth: "3px",
                 },
               },
               "& .MuiFormLabel-root": {
-                color: "rgba(0, 0, 0, 0.70)",
+                color: "rgba(0, 0, 0, 0.54)",
               },
-
+              "& .MuiFormLabel-root.Mui-focused": {
+                color: "rgba(0, 0, 0, 0.54)",
+              },
               "& .MuiFormLabel-asterisk": {
-                color: "red",
+                display: "none",
               },
             }}
           />
           <TextField
             margin="normal"
-            required
             fullWidth
             name="password"
-            label="Password"
             type="password"
             id="password"
+            label={
+              <div>
+                Password
+                {formik.errors.password && formik.touched.password && (
+                  <span style={{ color: "red", marginLeft: "5px" }}>*</span>
+                )}
+              </div>
+            }
             autoComplete="current-password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            onFocus={() => formik.setFieldTouched("password")}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
             InputProps={{
               endAdornment: (
                 <Box sx={{ display: "flex", alignItems: "center", pr: 1 }}>
@@ -111,19 +182,37 @@ export default function SignIn() {
             }}
             sx={{
               "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor:
+                    formik.errors.password && submitted
+                      ? "#f44336"
+                      : formik.touched.password && !formik.errors.password
+                      ? "#4caf50"
+                      : formik.touched.password
+                      ? "#2e5c9e61"
+                      : "gray",
+                },
                 "&:hover fieldset": {
-                  borderColor: "black",
+                  borderColor: "gray",
                 },
                 "&.Mui-focused fieldset": {
-                  borderColor: "#2e5c9e",
+                  borderColor:
+                    formik.errors.password && submitted
+                      ? "#d32f2f6e"
+                      : formik.touched.password && !formik.errors.password
+                      ? "#00800075"
+                      : "#2e5c9e61",
+                  borderWidth: "3px",
                 },
               },
               "& .MuiFormLabel-root": {
-                color: "rgba(0, 0, 0, 0.70)",
+                color: "rgba(0, 0, 0, 0.54)",
               },
-
+              "& .MuiFormLabel-root.Mui-focused": {
+                color: "rgba(0, 0, 0, 0.54)",
+              },
               "& .MuiFormLabel-asterisk": {
-                color: "red",
+                display: "none",
               },
             }}
           />
@@ -140,6 +229,7 @@ export default function SignIn() {
               fontWeight: "500",
               fontSize: "1rem",
             }}
+            onClick={() => setSubmitted(true)}
           >
             SIGN IN
           </Button>
