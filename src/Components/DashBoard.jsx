@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ResponsiveDrawer from "./Drawer";
 
 export const DashBoard = () => {
   const navigate = useNavigate();
@@ -45,11 +46,9 @@ export const DashBoard = () => {
 
   const openPopover = Boolean(popoverAnchorEl);
 
-  // Handle browser back button
   useEffect(() => {
     const handleBackNavigation = () => {
       if (!localStorage.getItem("username") && previousLocation) {
-        // Navigate back to the previous non-protected location
         window.location.href = previousLocation;
       }
     };
@@ -71,26 +70,33 @@ export const DashBoard = () => {
         position="static"
         sx={{
           backgroundColor: "#2e5c9e",
-          height: "80px", // Fixed height for AppBar
-          lineHeight: "80px", // Ensure vertical centering
+          height: "80px",
           boxShadow: "none",
+          paddingLeft: { sm: "0px", lg: "30px" },
         }}
       >
-        <Container maxWidth="xl">
-          <Toolbar disableGutters sx={{ paddingRight: "30px" }}>
+        <Container maxWidth="l">
+          <Toolbar
+            disableGutters
+            sx={{ paddingRight: { sm: "0px", lg: "30px" } }}
+          >
             <Typography
               variant="h6"
               id="logo-name"
               noWrap
               sx={{ flex: "1 0 auto", lineHeight: "85px" }}
             >
-              KOLI INFOETCH
+              KOLI INFOTECH
             </Typography>
             <Button
               color="inherit"
               endIcon={<ExpandMoreIcon />}
               onClick={handleUsernameClick}
-              sx={{ textTransform: "none" }}
+              sx={{
+                textTransform: "none",
+                fontSize: "1.1rem",
+                letterSpacing: "0.5px",
+              }}
             >
               {username}
             </Button>
@@ -107,11 +113,18 @@ export const DashBoard = () => {
                 horizontal: "right",
               }}
             >
-              <Box sx={{ p: 2 }}>
+              <Box sx={{ width: "150px", py: 0.4 }}>
                 <Button
-                  variant="contained"
-                  color="secondary"
+                  variant="text"
+                  color="primary"
                   onClick={handleLogout}
+                  sx={{
+                    width: "150px",
+                    fontWeight: "500",
+                    fontSize: "1.1rem",
+                    color: "#2e5c9e",
+                    textTransform: "capitalize",
+                  }}
                 >
                   Logout
                 </Button>

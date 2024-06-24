@@ -14,7 +14,7 @@ function NavBar() {
         height: "80px",
         lineHeight: "80px",
         boxShadow: "none",
-        paddingLeft: "30px",
+        paddingLeft: { sm: "0px", lg: "30px" },
         display: "flex",
         alignItems: "center",
       }}

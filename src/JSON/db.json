@@ -35,6 +35,12 @@
       "email": "david_r@gmail.com",
       "username": "david_r",
       "password": "3478*#54"
+    },
+    {
+      "id": 7,
+      "email": "david_r@gmail.com",
+      "username": "kendrick lamar",
+      "password": "456123"
     }
   ]
 }
