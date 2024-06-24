@@ -2,6 +2,8 @@ import { Container, Grid } from "@mui/material";
 import SignIn from "./SignIn";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import NavBar from "./NavBar";
+import Footer from "./Footer";
 
 const Home = () => {
   const theme = useTheme();
@@ -9,6 +11,7 @@ const Home = () => {
 
   return (
     <>
+      <NavBar />
       <section className="home-section" style={{ height: "100vh" }}>
         <div className="heading">
           <h3 className="wlcm-txt">Welcome to KoliInfotech Helpdesk (KIHD)</h3>
@@ -91,6 +94,7 @@ const Home = () => {
           </Grid>
         </Container>
       </section>
+      <Footer />
     </>
   );
 };

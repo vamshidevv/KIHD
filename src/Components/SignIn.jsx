@@ -13,6 +13,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Avatar } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   username: yup
@@ -26,6 +27,7 @@ const validationSchema = yup.object({
 });
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
 
   const formik = useFormik({
@@ -47,7 +49,7 @@ export default function SignIn() {
               user.password === values.password
           );
           if (foundUser) {
-            alert("Login successful!");
+            navigate("/dashboard");
           } else {
             alert("Invalid username or password");
           }
