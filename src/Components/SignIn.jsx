@@ -49,6 +49,7 @@ export default function SignIn() {
               user.password === values.password
           );
           if (foundUser) {
+           localStorage.setItem("username", foundUser.username);
             navigate("/dashboard");
           } else {
             alert("Invalid username or password");

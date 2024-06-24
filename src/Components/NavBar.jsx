@@ -39,7 +39,7 @@ function NavBar() {
             id="logo-name"
             sx={{ lineHeight: "85px" }}
           >
-            KOLI INFOETCH
+            KOLI INFOTECH
           </Typography>
         </Toolbar>
       </Container>
