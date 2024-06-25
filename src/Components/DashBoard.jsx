@@ -61,7 +61,7 @@ export const DashBoard = () => {
   }, [previousLocation]);
 
   if (!username) {
-    return null; // Render nothing while redirecting
+    return null; 
   }
 
   return (

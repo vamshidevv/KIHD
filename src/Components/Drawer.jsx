@@ -6,7 +6,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -19,22 +18,30 @@ import Typography from "@mui/material/Typography";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Container, Popover } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useState, useEffect } from "react";
+import { Blocks } from "react-loader-spinner";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
+  const [isLoading, setIsLoading] = useState(true);
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isClosing, setIsClosing] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const [previousLocation, setPreviousLocation] = React.useState(null);
-  const [username, setUsername] = React.useState(
-    localStorage.getItem("username")
-  );
-  const [popoverAnchorEl, setPopoverAnchorEl] = React.useState(null);
+  const [previousLocation, setPreviousLocation] = useState(null);
+  const [username, setUsername] = useState(localStorage.getItem("username"));
+  const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
     const username = localStorage.getItem("username");
 
     if (!username) {
@@ -59,7 +66,7 @@ function ResponsiveDrawer(props) {
 
   const openPopover = Boolean(popoverAnchorEl);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleBackNavigation = () => {
       if (!localStorage.getItem("username") && previousLocation) {
         window.location.href = previousLocation;
@@ -95,27 +102,50 @@ function ResponsiveDrawer(props) {
       setMobileOpen(!mobileOpen);
     }
   };
-
   const drawer = (
     <div>
-      <Toolbar />
-      <Divider />
       <List>
-        {["Dashboard", "Submit Ticket", "My Ticket"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {["Dashboard", "Submit Ticket", "My Ticket"].map((text, index) => {
+          let icon;
+          switch (text) {
+            case "Dashboard":
+              icon = (
+                <DashboardIcon sx={{ height: "2.2rem", width: "1.8rem" }} />
+              );
+              break;
+            case "Submit Ticket":
+              icon = <PostAddIcon sx={{ height: "2.2rem", width: "1.8rem" }} />;
+              break;
+            case "My Ticket":
+              icon = (
+                <ConfirmationNumberIcon
+                  sx={{ height: "2.2rem", width: "1.8rem" }}
+                />
+              );
+              break;
+            default:
+              icon = <MailIcon fontSize="large" />;
+          }
+          return (
+            <ListItem key={text} disablePadding>
+              <ListItemButton
+                sx={{
+                  color: "#474747",
+                  fontSize: "1rem",
+                  "&:hover": {
+                    backgroundColor: "rgba(46, 92, 158, 0.1)",
+                  },
+                }}
+              >
+                <ListItemIcon sx={{ color: "#2e5c9e" }}>{icon}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
       </List>
-      <Divider />
     </div>
   );
-
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -125,7 +155,7 @@ function ResponsiveDrawer(props) {
       <AppBar
         position="fixed"
         sx={{
-          width: "100%", // Set the AppBar to take full width
+          width: "100%",
           backgroundColor: "#2e5c9e",
           height: "80px",
           boxShadow: "none",
@@ -148,9 +178,15 @@ function ResponsiveDrawer(props) {
             </IconButton>
             <Typography
               variant="h6"
-              id="logo-name"
+              //   id="logo-name"
               noWrap
-              sx={{ flex: "1 0 auto", lineHeight: "85px" }}
+              sx={{
+                flex: "1 0 auto",
+                lineHeight: "85px",
+                fontSize: { xs: "1rem", sm: "1.6rem", lg: "1.7rem" },
+                fontFamily: "'Stardos Stencil', 'system-ui', sans-serif",
+                fontWeight: "600",
+              }}
             >
               KOLI INFOTECH
             </Typography>
@@ -160,7 +196,8 @@ function ResponsiveDrawer(props) {
               onClick={handleUsernameClick}
               sx={{
                 textTransform: "none",
-                fontSize: "1.1rem",
+                fontSize: { xs: "0.9rem", lg: "1.1rem" },
+                fontFamily: "'Stardos Stencil', 'system-ui', sans-serif",
                 letterSpacing: "0.5px",
               }}
             >
@@ -181,7 +218,7 @@ function ResponsiveDrawer(props) {
             >
               <Box sx={{ width: "150px", py: 0.4 }}>
                 <Button
-                  variant="text"
+                  variant="txt"
                   color="primary"
                   onClick={handleLogout}
                   sx={{
@@ -199,6 +236,7 @@ function ResponsiveDrawer(props) {
           </Toolbar>
         </Container>
       </AppBar>
+
       <Box
         component="nav"
         sx={{
@@ -222,6 +260,8 @@ function ResponsiveDrawer(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              border: "none",
+              boxShadow: "0 0 20px rgba(1,41,112,.1)",
             },
           }}
         >
@@ -235,6 +275,8 @@ function ResponsiveDrawer(props) {
               boxSizing: "border-box",
               width: drawerWidth,
               mt: "80px",
+              border: "none",
+              boxShadow: "0 0 20px rgba(1,41,112,.1)",
             },
           }}
           open
@@ -242,6 +284,7 @@ function ResponsiveDrawer(props) {
           {drawer}
         </Drawer>
       </Box>
+
       <Box
         component="main"
         sx={{
@@ -253,35 +296,59 @@ function ResponsiveDrawer(props) {
         }}
       >
         <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        {isLoading === true ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "85vh",
+            }}
+          >
+            <Blocks
+              height="60"
+              width="60"
+              color="#4fa94d"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              visible={true}
+            />
+          </div>
+        ) : (
+          <div>
+            <Typography paragraph>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Rhoncus dolor purus non enim praesent elementum facilisis leo vel.
+              Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
+              gravida rutrum quisque non tellus. Convallis convallis tellus id
+              interdum velit laoreet id donec ultrices. Odio morbi quis commodo
+              odio aenean sed adipiscing. Amet nisl suscipit adipiscing bibendum
+              est ultricies integer quis. Cursus euismod quis viverra nibh cras.
+              Metus vulputate eu scelerisque felis imperdiet proin fermentum
+              leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt
+              lobortis feugiat vivamus at augue. At augue eget arcu dictum
+              varius duis at consectetur lorem. Velit sed ullamcorper morbi
+              tincidunt. Lorem donec massa sapien faucibus et molestie ac.
+            </Typography>
+            <Typography paragraph>
+              Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
+              ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
+              elementum integer enim neque volutpat ac tincidunt. Ornare
+              suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
+              volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
+              Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
+              ornare massa eget egestas purus viverra accumsan in. In hendrerit
+              gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
+              aliquam sem et tortor. Habitant morbi tristique senectus et.
+              Adipiscing elit duis tristique sollicitudin nibh sit. Ornare
+              aenean euismod elementum nisi quis eleifend. Commodo viverra
+              maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin
+              aliquam ultrices sagittis orci a.
+            </Typography>
+          </div>
+        )}
       </Box>
     </Box>
   );
