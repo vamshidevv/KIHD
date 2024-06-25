@@ -39,7 +39,7 @@ const Footer = () => {
         >
           <Grid item>
             <Typography variant="body2" sx={{ fontWeight: "500" }}>
-              WWW.EXCELINDIA.COM @ 2024. EXCELSOFT. ALL RIGHTS RESERVED.
+              WWW.KOLIINFOTECH.COM @ 2024. KOLIINFOTECH. ALL RIGHTS RESERVED.
               (VERSION : 1.2.7.0)
             </Typography>
           </Grid>

@@ -11,7 +11,7 @@ import Container from "@mui/material/Container";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { Avatar } from "@mui/material";
+import { Alert, Avatar } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -29,6 +29,7 @@ const validationSchema = yup.object({
 export default function SignIn() {
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(null); // State for alert message
 
   const formik = useFormik({
     initialValues: {
@@ -49,10 +50,10 @@ export default function SignIn() {
               user.password === values.password
           );
           if (foundUser) {
-           localStorage.setItem("username", foundUser.username);
+            localStorage.setItem("username", foundUser.username);
             navigate("/dashboard");
           } else {
-            alert("Invalid username or password");
+            setAlertMessage("Invalid Username and Password"); // Set alert message state
           }
         })
         .catch((error) => {
@@ -90,6 +91,7 @@ export default function SignIn() {
         >
           SIGN IN
         </Typography>
+
         <Box
           component="form"
           onSubmit={formik.handleSubmit}
@@ -108,7 +110,6 @@ export default function SignIn() {
                 )}
               </div>
             }
-       
             value={formik.values.username}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -240,6 +241,7 @@ export default function SignIn() {
               },
             }}
           />
+          {alertMessage && <Alert severity="error">{alertMessage}</Alert>}
           <Button
             type="submit"
             variant="contained"
@@ -257,6 +259,7 @@ export default function SignIn() {
           >
             SIGN IN
           </Button>
+
           <Typography
             variant="body2"
             color="textSecondary"
