@@ -45,8 +45,8 @@ const Footer = () => {
           </Grid>
           <Grid item>
             <Typography variant="body2">
-              <Link href="mailto:eshdsupport@excelindia.com" underline="hover">
-                Contact Us: eshdsupport@excelindia.com
+              <Link href="mailto:info@koliinfotech.com" underline="hover">
+                Contact Us: info@koliinfotech.com
               </Link>
             </Typography>
           </Grid>

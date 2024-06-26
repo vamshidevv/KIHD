@@ -133,6 +133,7 @@ function ResponsiveDrawer({ window, children }) {
           return (
             <ListItem key={text} disablePadding>
               <ListItemButton
+                title={text}
                 selected={activeSection === text}
                 onClick={() => handleSectionClick(text, path)}
                 sx={{

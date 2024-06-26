@@ -1,8 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "../Components/Home";
-// import { DashBoard } from "../Components/DashBoard";
-import ResponsiveDrawer from "../Components/Drawer";
 import SubmitTicket from "../Components/SubmitTicket";
 import MyTickets from "../Components/MyTickets";
 import DashboardCards from "../Components/DashboardCards";

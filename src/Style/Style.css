@@ -94,3 +94,90 @@ body {
     margin: 0 !important;
   }
 }
+
+/* DahsBoradcards css starts from here  */
+
+.dashboard-txt {
+  color: #575757;
+  padding: 10px 20px;
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+}
+.dashboard {
+  display: flex;
+  justify-content: left;
+  padding: 20px;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  width: 35%;
+  padding: 10px 0px;
+  transition: box-shadow 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  cursor: pointer;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  /* gap: 20px; */
+}
+
+.card-icon {
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.ticket-count {
+  margin-top: 5px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.dashboard-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#post-icon {
+  color: #9d07cbaf;
+  height: 60px;
+  width: 60px;
+  border-radius: 50px;
+  padding: 13px;
+  background-color: #eccdf5;
+}
+#confirm-icon {
+  color: #2e5c9e;
+  height: 60px;
+  width: 60px;
+  border-radius: 50px;
+  padding: 13px;
+  background-color: #d5deeb;
+}
+
+@media (max-width: 768px) {
+  .dashboard-card {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-card {
+    width: 100%;
+  }
+}
+
+/* DahsBoradcards css ends  here  */
