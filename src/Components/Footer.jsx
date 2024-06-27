@@ -28,6 +28,7 @@ const Footer = () => {
         position: "fixed",
         bottom: 0,
         flexShrink: 0,
+        zIndex: "1200",
       }}
     >
       <Container maxWidth="lg">

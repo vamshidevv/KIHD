@@ -12,13 +12,13 @@ const DashboardCards = () => {
     <>
       <h2 className="dashboard-txt">Dashboard</h2>
       <Box className="dashboard">
-        <div className="dashboard-card">
-          <CardContent
-            className="card-content"
-            onClick={() => {
-              navigate("/submitticket");
-            }}
-          >
+        <div
+          className="dashboard-card"
+          onClick={() => {
+            navigate("/submitticket");
+          }}
+        >
+          <CardContent className="card-content">
             <div
               id="submit-ticket-txt"
               style={{
@@ -52,13 +52,13 @@ const DashboardCards = () => {
             </Typography>
           </CardContent>
         </div>
-        <div className="dashboard-card">
-          <CardContent
-            className="card-content"
-            onClick={() => {
-              navigate("/mytickets");
-            }}
-          >
+        <div
+          className="dashboard-card"
+          onClick={() => {
+            navigate("/mytickets");
+          }}
+        >
+          <CardContent className="card-content">
             <div
               style={{
                 display: "flex",

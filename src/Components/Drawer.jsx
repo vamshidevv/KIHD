@@ -272,7 +272,6 @@ function ResponsiveDrawer({ window, children }) {
                 boxSizing: "border-box",
                 width: drawerWidth,
                 boxShadow: "0 0 20px rgba(1,41,112,.1)",
-                border: "none",
               },
             }}
           >
@@ -287,8 +286,8 @@ function ResponsiveDrawer({ window, children }) {
                 width: drawerWidth,
                 mt: "80px",
                 boxShadow: "0 0 20px rgba(1,41,112,.1)",
-                border: "none",
               },
+              marginBottom: "80px",
             }}
             open
           >
