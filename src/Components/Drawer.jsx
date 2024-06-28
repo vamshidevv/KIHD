@@ -21,8 +21,8 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import { Blocks } from "react-loader-spinner";
-import NavBar from "./NavBar";
 import Footer from "./Footer";
+import CloseIcon from "@mui/icons-material/Close";
 
 const drawerWidth = 240;
 
@@ -31,7 +31,7 @@ function ResponsiveDrawer({ window, children }) {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(true); // Initially open on desktop
   const [username, setUsername] = useState(localStorage.getItem("username"));
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
   const [activeSection, setActiveSection] = useState("Dashboard");
@@ -81,18 +81,12 @@ function ResponsiveDrawer({ window, children }) {
 
   const openPopover = Boolean(popoverAnchorEl);
 
-  const handleDrawerClose = () => {
-    setIsClosing(true);
-    setMobileOpen(false);
-  };
-
-  const handleDrawerTransitionEnd = () => {
-    setIsClosing(false);
-  };
-
   const handleDrawerToggle = () => {
-    if (!isClosing) {
+    if (mobileOpen && !drawerOpen) {
+      setMobileOpen(false);
+    } else {
       setMobileOpen(!mobileOpen);
+      setDrawerOpen(!drawerOpen);
     }
   };
 
@@ -179,15 +173,29 @@ function ResponsiveDrawer({ window, children }) {
               disableGutters
               sx={{ paddingRight: { sm: "0px", lg: "30px" } }}
             >
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ mr: 2, display: { sm: "none" } }}
-              >
-                <MenuIcon />
-              </IconButton>
+              {drawerOpen && ( // Conditional rendering based on drawerOpen state
+                <IconButton
+                  color="inherit"
+                  aria-label="close drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                  sx={{ mr: 2, display: { sm: "block" } }}
+                >
+                  <CloseIcon id="close-icon" />{" "}
+                  {/* Close icon when drawer is open */}
+                </IconButton>
+              )}
+              {!drawerOpen && ( // Hamburger icon when drawer is closed
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                  sx={{ mr: 2, display: { sm: "block" } }}
+                >
+                  <MenuIcon />
+                </IconButton>
+              )}
               <Typography
                 variant="h6"
                 noWrap
@@ -251,9 +259,10 @@ function ResponsiveDrawer({ window, children }) {
         <Box
           component="nav"
           sx={{
-            width: { sm: drawerWidth },
+            width: { sm: drawerOpen ? drawerWidth : 0 },
             flexShrink: { sm: 0 },
             mt: "80px",
+            transition: "width 0.3s",
           }}
           aria-label="mailbox folders"
         >
@@ -261,8 +270,7 @@ function ResponsiveDrawer({ window, children }) {
             container={container}
             variant="temporary"
             open={mobileOpen}
-            onTransitionEnd={handleDrawerTransitionEnd}
-            onClose={handleDrawerClose}
+            onClose={handleDrawerToggle}
             ModalProps={{
               keepMounted: true,
             }}
@@ -283,18 +291,17 @@ function ResponsiveDrawer({ window, children }) {
               display: { xs: "none", sm: "block" },
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
-                width: drawerWidth,
+                width: drawerOpen ? drawerWidth : 0,
                 mt: "80px",
+                transition: "width 0.3s",
                 boxShadow: "0 0 20px rgba(1,41,112,.1)",
               },
-              marginBottom: "80px",
             }}
             open
           >
             {drawer}
           </Drawer>
         </Box>
-
         <Box
           component="main"
           sx={{
@@ -302,7 +309,8 @@ function ResponsiveDrawer({ window, children }) {
             height: "100vh",
             backgroundColor: "#f6f6f6",
             p: 3,
-            width: { sm: `calc(100% - ${drawerWidth}px)` },
+            width: { sm: `calc(100% - ${drawerOpen ? drawerWidth : 0}px)` },
+            transition: "width 0.3s",
           }}
         >
           <Toolbar />

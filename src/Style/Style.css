@@ -203,14 +203,10 @@ body {
   }
 }
 
-@media (max-width: 600px) {
-  .ticket-count {
-    padding-top: 5px !important;
-    padding-bottom: 0px !important;
-  }
-  .dashboard-card {
-    width: 100%;
-  }
-}
-
 /* DahsBoradcards css ends  here  */
+
+/* important form css for asteric starts here*/
+.imp {
+  color: red;
+}
+/* important form css for asteric ends here*/
