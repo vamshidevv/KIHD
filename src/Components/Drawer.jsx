@@ -306,7 +306,8 @@ function ResponsiveDrawer({ window, children }) {
           component="main"
           sx={{
             flexGrow: 1,
-            height: "100vh",
+            minHeight: "100vh",
+            height: "auto",
             backgroundColor: "#f6f6f6",
             p: 3,
             width: { sm: `calc(100% - ${drawerOpen ? drawerWidth : 0}px)` },
