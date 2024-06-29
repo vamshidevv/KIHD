@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   TextField,
@@ -6,10 +6,13 @@ import {
   Grid,
   Typography,
   MenuItem,
+  Tooltip,
+  Hidden,
 } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import withResponsiveDrawer from "./withResponsiveDrawer";
 import { styled } from "@mui/system";
+import InfoIcon from "@mui/icons-material/Info";
 
 const initialValues = {
   contactNumber: "9874563212",
@@ -29,37 +32,37 @@ const CustomTextField = styled(TextField)({
       borderColor: "#e3e3e3", // Standard border color
     },
     "&:hover fieldset": {
-      borderColor: "#e9ecef", // Hover border color
+      borderColor: "#e3e3e3", // Hover border color
     },
     "&.Mui-focused fieldset": {
-      borderColor: "#1976d2", // Focused border color
-      borderWidth: "2px", // Increase border width on focus
+      borderColor: "#2e5c9e61", // Focused border color
+    },
+  },
+  "& .MuiInputBase-input": {
+    cursor: "default",
+    backgroundColor: "#e9ecef",
+    color: "#474747",
+    fontSize: "0.9rem",
+  },
+});
+
+const TicketDetailsTextField = styled(TextField)({
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "#e3e3e3", // Custom border color
+    },
+    "&:hover fieldset": {
+      borderColor: "#e3e3e3", // Hover border color
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "#2e5c9e61", // Focused border color
+      borderWidth: "3px",
     },
   },
   "& .MuiInputBase-input": {
     cursor: "default",
     color: "#474747",
     fontSize: "0.9rem",
-  },
-  "&:hover": {
-    cursor: "cell", // Change cursor to pointer on hover
-  },
-});
-
-// Custom styled textarea for description field
-const CustomTextarea = styled("textarea")({
-  width: "100%",
-  padding: "10px",
-  borderRadius: "4px",
-  boxSizing: "border-box",
-  borderColor: "#e3e3e3", // Standard border color
-  "&:hover": {
-    borderColor: "#e9ecef", // Hover border color
-  },
-  "&:focus": {
-    outline: "none",
-    borderColor: "#1976d2", // Focused border color
-    borderWidth: "2px", // Increase border width on focus
   },
 });
 
@@ -229,7 +232,21 @@ const SubmitTicket = () => {
                           variant="outlined"
                           placeholder="Contact No"
                           required
-                          sx={{ marginTop: "5px" }}
+                          sx={{
+                            marginTop: "5px",
+                            "& .MuiOutlinedInput-root": {
+                              "& fieldset": {
+                                borderColor: "#e3e3e3", // Custom border color
+                              },
+                              "&:hover fieldset": {
+                                borderColor: "#e3e3e3", // Hover border color
+                              },
+                              "&.Mui-focused fieldset": {
+                                borderWidth: "3px",
+                                borderColor: "#2e5c9e61", // Focused border color
+                              },
+                            },
+                          }}
                         />
                       </Grid>
                     </Grid>
@@ -244,20 +261,26 @@ const SubmitTicket = () => {
                     component="fieldset"
                     borderColor="gray"
                     borderRadius="4px"
-                    border={1}
                     padding={2}
                   >
-                    <legend style={{ padding: "0 10px", fontSize: "1.25rem" }}>
+                    <legend
+                      style={{
+                        padding: "0 10px",
+                        fontSize: "1.1rem",
+                        letterSpacing: "0.5px ",
+                        fontWeight: "400",
+                        color: "#474747",
+                      }}
+                    >
                       Ticket Details
                     </legend>
                     <Grid container spacing={2}>
                       {/* Type field */}
-
                       <Grid item xs={12} md={4}>
                         <label htmlFor="">
                           Type <span>*</span>
                         </label>
-                        <Field
+                        <TicketDetailsTextField
                           as={TextField}
                           select
                           fullWidth
@@ -267,7 +290,7 @@ const SubmitTicket = () => {
                         >
                           <MenuItem value="">--Select--</MenuItem>
                           {/* Add your options here */}
-                        </Field>
+                        </TicketDetailsTextField>
                       </Grid>
 
                       {/* Category and Subcategory fields */}
@@ -275,7 +298,7 @@ const SubmitTicket = () => {
                         <label htmlFor="">
                           Category <span>*</span>
                         </label>
-                        <Field
+                        <TicketDetailsTextField
                           as={TextField}
                           select
                           fullWidth
@@ -285,13 +308,13 @@ const SubmitTicket = () => {
                         >
                           <MenuItem value="">--Select--</MenuItem>
                           {/* Add your options here */}
-                        </Field>
+                        </TicketDetailsTextField>
                       </Grid>
                       <Grid item xs={12} sm={6} md={4}>
                         <label htmlFor="">
                           Subcategory <span>*</span>
                         </label>
-                        <Field
+                        <TicketDetailsTextField
                           as={TextField}
                           select
                           fullWidth
@@ -301,7 +324,7 @@ const SubmitTicket = () => {
                         >
                           <MenuItem value="">--Select--</MenuItem>
                           {/* Add your options here */}
-                        </Field>
+                        </TicketDetailsTextField>
                       </Grid>
 
                       {/* Subject field */}
@@ -309,12 +332,17 @@ const SubmitTicket = () => {
                         <label htmlFor="">
                           Subject <span>*</span>
                         </label>
-                        <Field
+                        <TicketDetailsTextField
                           as={TextField}
                           fullWidth
                           name="subject"
                           variant="outlined"
                           required
+                          sx={{
+                            "& .MuiInputBase-input": {
+                              cursor: "text",
+                            },
+                          }}
                         />
                       </Grid>
 
@@ -323,14 +351,22 @@ const SubmitTicket = () => {
                         <label htmlFor="">
                           Description <span>*</span>
                         </label>
-                        <CustomTextarea
-                          as="textarea" // Use "textarea" here to render a textarea element
-                          fullWidth
+                        <Field
+                          as="textarea" // Use textarea instead of TextField for description
                           name="description"
+                          // placeholder="Describe your issue or request here..."
+                          variant="outlined"
+                          multiline
                           rows={4}
                           required
-                          onChange={handleChange}
-                          value={values.description}
+                          style={{
+                            width: "100%",
+                            padding: "10px",
+                            borderRadius: "4px",
+                            boxSizing: "border-box",
+                            border: "1px solid #e3e3e3",
+                            borderColor: "#e3e3e3",
+                          }}
                         />
                       </Grid>
 
@@ -339,7 +375,7 @@ const SubmitTicket = () => {
                         <label htmlFor="">
                           Priority <span>*</span>
                         </label>
-                        <Field
+                        <TicketDetailsTextField
                           as={TextField}
                           select
                           fullWidth
@@ -347,9 +383,9 @@ const SubmitTicket = () => {
                           variant="outlined"
                           required
                         >
-                          <MenuItem value="">--Select--</MenuItem>
+                          <MenuItem value="--select--">--Select--</MenuItem>
                           {/* Add your options here */}
-                        </Field>
+                        </TicketDetailsTextField>
                       </Grid>
                       <Grid item xs={12} sm={6} md={5}>
                         <label htmlFor="">Attachment</label>
@@ -366,16 +402,44 @@ const SubmitTicket = () => {
                             )
                           }
                         />
-                        <CustomTextField
-                          fullWidth
-                          variant="outlined"
-                          value={values.attachment || "No file chosen"}
-                          onClick={() =>
-                            document.getElementById("file-upload").click()
-                          }
-                          readOnly
-                          sx={{ cursor: "cell" }}
-                        />
+                        <Box sx={{ position: "relative" }}>
+                          <TicketDetailsTextField
+                            fullWidth
+                            variant="outlined"
+                            value={values.attachment || "No file chosen"}
+                            onClick={() =>
+                              document.getElementById("file-upload").click()
+                            }
+                            readOnly
+                            sx={{
+                              "& .MuiInputBase-input": {
+                                cursor: "pointer",
+                              },
+                            }}
+                          />
+                          <Tooltip
+                            title={
+                              <>
+                                - Supported file types: .JPG, .PNG, .pdf, .doc,
+                                .xlsx, .zip, .txt, .xls
+                                <br />- Maximum file size allowed is 5 Mb.
+                              </>
+                            }
+                            placement="top"
+                            arrow
+                          >
+                            <InfoIcon
+                              sx={{
+                                color: "#474747",
+                                cursor: "pointer",
+                                position: "absolute",
+                                right: 10,
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                              }}
+                            />
+                          </Tooltip>
+                        </Box>
                       </Grid>
                     </Grid>
                   </Box>
@@ -384,8 +448,11 @@ const SubmitTicket = () => {
               <Button
                 type="submit"
                 variant="contained"
-                color="primary"
-                sx={{ mt: 3 , backgroundColor:"#2e5c9e" }}
+                sx={{
+                  mt: 3,
+                  backgroundColor: "#2e5c9e",
+                  "&:hover": { backgroundColor: "#2e5c9ecc" },
+                }}
               >
                 Submit Ticket
               </Button>
