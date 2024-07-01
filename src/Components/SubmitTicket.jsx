@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   TextField,
@@ -9,6 +9,7 @@ import {
   Tooltip,
   ThemeProvider,
   createTheme,
+  Alert,
 } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup"; // Import Yup for validation
@@ -80,6 +81,8 @@ const TicketDetailsTextField = styled(TextField)({
 });
 
 const SubmitTicket = () => {
+  const [fileSizeError, setFileSizeError] = useState(false); // State to manage file size error
+
   // Define a custom theme with overrides for MenuItem
   const theme = createTheme({
     components: {
@@ -337,6 +340,32 @@ const SubmitTicket = () => {
                               renderValue: (value) =>
                                 value === "" ? "--Select--" : value,
                             }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "& fieldset": {
+                                  borderColor:
+                                    touched.type && errors.type
+                                      ? "#f44336"
+                                      : touched.type && !errors.type
+                                      ? "#4caf50"
+                                      : touched.type
+                                      ? "#2e5c9e61"
+                                      : "#e3e3e3",
+                                },
+                                "&:hover fieldset": {
+                                  borderColor: "#e3e3e3",
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor:
+                                    touched.type && errors.type
+                                      ? "#d32f2f6e"
+                                      : touched.type && !errors.type
+                                      ? "#00800075"
+                                      : "#2e5c9e61",
+                                  borderWidth: "3px",
+                                },
+                              },
+                            }}
                           >
                             <MenuItem value="" disabled>
                               --Select--
@@ -373,6 +402,32 @@ const SubmitTicket = () => {
                               renderValue: (value) =>
                                 value === "" ? "--Select--" : value,
                             }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "& fieldset": {
+                                  borderColor:
+                                    touched.category && errors.category
+                                      ? "#f44336"
+                                      : touched.category && !errors.category
+                                      ? "#4caf50"
+                                      : touched.category
+                                      ? "#2e5c9e61"
+                                      : "#e3e3e3",
+                                },
+                                "&:hover fieldset": {
+                                  borderColor: "#e3e3e3",
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor:
+                                    touched.category && errors.category
+                                      ? "#d32f2f6e"
+                                      : touched.category && !errors.category
+                                      ? "#00800075"
+                                      : "#2e5c9e61",
+                                  borderWidth: "3px",
+                                },
+                              },
+                            }}
                           >
                             <MenuItem value="" disabled>
                               --Select--
@@ -406,6 +461,35 @@ const SubmitTicket = () => {
                               renderValue: (value) =>
                                 value === "" ? "--Select--" : value,
                             }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "& fieldset": {
+                                  borderColor:
+                                    touched.subcategory &&
+                                    errors.categosubcategoryy
+                                      ? "#f44336"
+                                      : touched.subcategory &&
+                                        !errors.subcategory
+                                      ? "#4caf50"
+                                      : touched.subcategory
+                                      ? "#2e5c9e61"
+                                      : "#e3e3e3",
+                                },
+                                "&:hover fieldset": {
+                                  borderColor: "#e3e3e3",
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor:
+                                    touched.subcategory && errors.subcategory
+                                      ? "#d32f2f6e"
+                                      : touched.subcategory &&
+                                        !errors.subcategory
+                                      ? "#00800075"
+                                      : "#2e5c9e61",
+                                  borderWidth: "3px",
+                                },
+                              },
+                            }}
                           >
                             <MenuItem value="" disabled="true">
                               --Select--
@@ -437,6 +521,30 @@ const SubmitTicket = () => {
                               "& .MuiInputBase-input": {
                                 cursor: "text",
                               },
+                              "& .MuiOutlinedInput-root": {
+                                "& fieldset": {
+                                  borderColor:
+                                    touched.subject && errors.subject
+                                      ? "#f44336"
+                                      : touched.subject && !errors.subject
+                                      ? "#4caf50"
+                                      : touched.subject
+                                      ? "#2e5c9e61"
+                                      : "#e3e3e3",
+                                },
+                                "&:hover fieldset": {
+                                  borderColor: "#e3e3e3",
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor:
+                                    touched.subject && errors.subject
+                                      ? "#d32f2f6e"
+                                      : touched.subject && !errors.subject
+                                      ? "#00800075"
+                                      : "#2e5c9e61",
+                                  borderWidth: "3px",
+                                },
+                              },
                             }}
                             onChange={handleChange}
                           />
@@ -453,7 +561,7 @@ const SubmitTicket = () => {
                             Description <span className="imp">*</span>
                           </label>
                           <Field
-                            as="textarea" // Use textarea instead of TextField for description
+                            as={TicketDetailsTextField} // change this to textarea input
                             name="description"
                             variant="outlined"
                             multiline
@@ -463,10 +571,38 @@ const SubmitTicket = () => {
                               padding: "10px",
                               borderRadius: "4px",
                               boxSizing: "border-box",
-                              border: "1px solid #e3e3e3",
+                              // border: "1px solid #e3e3e3",
                               borderColor: "#e3e3e3",
                             }}
                             onChange={handleChange}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "& fieldset": {
+                                  borderColor:
+                                    touched.description && errors.description
+                                      ? "#f44336"
+                                      : touched.description &&
+                                        !errors.description
+                                      ? "#4caf50"
+                                      : touched.description
+                                      ? "#2e5c9e61"
+                                      : "#e3e3e3",
+                                },
+                                "&:hover fieldset": {
+                                  borderColor: "#e3e3e3",
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor:
+                                    touched.description && errors.description
+                                      ? "#d32f2f6e"
+                                      : touched.description &&
+                                        !errors.description
+                                      ? "#00800075"
+                                      : "#2e5c9e61",
+                                  borderWidth: "3px",
+                                },
+                              },
+                            }}
                           />
                           {touched.description && errors.description && (
                             <Typography variant="caption" color="error">
@@ -495,6 +631,32 @@ const SubmitTicket = () => {
                               renderValue: (value) =>
                                 value === "" ? "--Select--" : value,
                             }}
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "& fieldset": {
+                                  borderColor:
+                                    touched.priority && errors.priority
+                                      ? "#f44336"
+                                      : touched.priority && !errors.priority
+                                      ? "#4caf50"
+                                      : touched.priority
+                                      ? "#2e5c9e61"
+                                      : "#e3e3e3",
+                                },
+                                "&:hover fieldset": {
+                                  borderColor: "#e3e3e3",
+                                },
+                                "&.Mui-focused fieldset": {
+                                  borderColor:
+                                    touched.priority && errors.priority
+                                      ? "#d32f2f6e"
+                                      : touched.priority && !errors.priority
+                                      ? "#00800075"
+                                      : "#2e5c9e61",
+                                  borderWidth: "3px",
+                                },
+                              },
+                            }}
                           >
                             <MenuItem value="">--Select--</MenuItem>
                             <MenuItem value="High">P1 - Critical</MenuItem>
@@ -514,20 +676,31 @@ const SubmitTicket = () => {
                             id="file-upload"
                             type="file"
                             style={{ display: "none" }}
-                            onChange={(event) =>
-                              setFieldValue(
-                                "attachment",
-                                event.target.files[0]
-                                  ? event.target.files[0].name
-                                  : ""
-                              )
-                            }
+                            onChange={(event) => {
+                              const file = event.target.files[0];
+                              if (file.size > 5 * 1024 * 1024) {
+                                setFileSizeError(true);
+                                setFieldValue("attachment", "");
+                              } else {
+                                setFileSizeError(false);
+                                setFieldValue(
+                                  "attachment",
+                                  file ? file.name : ""
+                                );
+                              }
+                            }}
                           />
                           <Box sx={{ position: "relative" }}>
                             <TicketDetailsTextField
                               fullWidth
                               variant="outlined"
-                              value={values.attachment || "No file chosen"}
+                              value={
+                                values.attachment
+                                  ? values.attachment.length > 20
+                                    ? `${values.attachment.substring(0, 20)}...`
+                                    : values.attachment
+                                  : "No file chosen"
+                              }
                               onClick={() =>
                                 document.getElementById("file-upload").click()
                               }
@@ -561,6 +734,11 @@ const SubmitTicket = () => {
                               />
                             </Tooltip>
                           </Box>
+                          {fileSizeError && (
+                            <Alert severity="error">
+                              Maximum file size allowed is 5MB.
+                            </Alert>
+                          )}
                         </Grid>
                       </Grid>
                     </Box>
