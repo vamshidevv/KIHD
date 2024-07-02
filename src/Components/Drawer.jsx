@@ -181,7 +181,7 @@ function ResponsiveDrawer({ window, children }) {
                   onClick={handleDrawerToggle}
                   sx={{ mr: 2, display: { sm: "block" } }}
                 >
-                  <CloseIcon id="close-icon" />{" "}
+                  <MenuIcon id="close-icon" />{" "}
                   {/* Close icon when drawer is open */}
                 </IconButton>
               )}

@@ -465,8 +465,7 @@ const SubmitTicket = () => {
                               "& .MuiOutlinedInput-root": {
                                 "& fieldset": {
                                   borderColor:
-                                    touched.subcategory &&
-                                    errors.categosubcategoryy
+                                    touched.subcategory && errors.subcategory
                                       ? "#f44336"
                                       : touched.subcategory &&
                                         !errors.subcategory
