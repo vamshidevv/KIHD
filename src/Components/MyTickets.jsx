@@ -1,23 +1,25 @@
 import * as React from "react";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import IconButton from "@mui/material/IconButton";
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TablePagination,
+  IconButton,
+  Select,
+  MenuItem,
+  Button,
+} from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
-import Button from "@mui/material/Button";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
+
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import withResponsiveDrawer from "./withResponsiveDrawer";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   { id: "ticketId", label: "Ticket ID", minWidth: 100 },
@@ -57,15 +59,15 @@ const rows = [
   {
     ticketId: "124862",
     requestedDate: "16-Apr-2024 10:00 AM",
-    category: "Access Review	",
+    category: "Access Review",
     subcategory: "Admin Rights",
     subject: "Request for New Admin Access Password",
     status: "Closed",
   },
   {
-    ticketId: "121737	",
+    ticketId: "121737",
     requestedDate: "18-Mar-2024 03:24 PM",
-    category: "AD Account	",
+    category: "AD Account",
     subcategory: "Password Reset",
     subject: "Reset or Unlock the account",
     status: "Closed",
@@ -88,7 +90,7 @@ const rows = [
   },
   {
     ticketId: "119576",
-    requestedDate: "27-Feb-2024 06:10 PM	",
+    requestedDate: "27-Feb-2024 06:10 PM",
     category: "USB/Admin Access",
     subcategory: "Admin Rights Request",
     subject: "Request for Admin Access Control",
@@ -97,7 +99,7 @@ const rows = [
   {
     ticketId: "119548",
     requestedDate: "27-Feb-2024 04:10 PM",
-    category: "Access Control	",
+    category: "Access Control",
     subcategory: "Biometric",
     subject: "Request for Admin Access Control",
     status: "Closed",
@@ -105,7 +107,10 @@ const rows = [
   // Add more rows as needed
 ];
 
+// Responsive width based on screen size
+
 const MyTickets = () => {
+  const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [status, setStatus] = React.useState("All");
@@ -131,6 +136,7 @@ const MyTickets = () => {
         marginTop: "20px",
         marginRight: { xs: "0px", sm: "0px", md: "0px", lg: "80px" },
         padding: 3,
+        width: "100%",
       }}
     >
       <Box sx={{ padding: 2, backgroundColor: "#ffffff" }}>
@@ -139,7 +145,14 @@ const MyTickets = () => {
             <Typography variant="h6">My Tickets (9)</Typography>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#2e5c9e",
+                "&:hover": { backgroundColor: "#2e5c9ecc" },
+              }}
+              onClick={() => navigate("/submitticket")}
+            >
               Submit a Ticket
             </Button>
           </Grid>
@@ -159,108 +172,134 @@ const MyTickets = () => {
             </Typography>
           </Grid>
           <Grid item>
-            <FormControl sx={{ minWidth: 300 }}>
-              <Select value={status} onChange={handleStatusChange}>
+            <FormControl sx={{ minWidth: 300, height: "40px" }}>
+              <Select
+                value={status}
+                onChange={handleStatusChange}
+                sx={{ height: "38px" }}
+              >
                 <MenuItem value="All">All</MenuItem>
-                {/* <MenuItem value="Open">Open</MenuItem> */}
                 <MenuItem value="Closed">Closed</MenuItem>
+                {/* <MenuItem value="Closed">Open</MenuItem> */}
               </Select>
             </FormControl>
           </Grid>
         </Grid>
       </Box>
 
-      <TableContainer
-        sx={{
-          marginTop: 2,
-          borderRadius: "5px 5px 0 0",
-          border: "1px solid #e0e0e0",
-          "@media (max-width: 600px)": {
-            overflowX: "auto",
-            maxHeight: "none",
-          },
-          "@media (min-width: 600px)": {
-            maxHeight: 440,
-          },
-        }}
-      >
-        <Grid
-          container
-          spacing={2}
+      <Box sx={{ overflowX: "auto", marginTop: 2 }}>
+        <TableContainer
           sx={{
-            height: "60px",
-            backgroundColor: "#e5ebf2",
-            display: "flex",
-            alignItems: "center",
+            borderRadius: "5px 5px 0 0",
+            border: "1px solid #e0e0e0",
+            minWidth: "1000px",
           }}
         >
-          <Grid item xs={12}>
-            <Typography variant="body2">
-              Filter data (
-              <span
-                style={{
-                  color: "#0AB56D",
-                  fontSize: "1rem",
-                  fontWeight: "600",
-                }}
-              >
-                9
-              </span>{" "}
-              / 9)
-            </Typography>
-          </Grid>
-        </Grid>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align="left"
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              height: "60px",
+              backgroundColor: "#e5ebf2",
+              display: "flex",
+              alignItems: "center",
+              minWidth: "100%",
+              paddingLeft: 2,
+            }}
+          >
+            <Grid item xs={12}>
+              <Typography variant="body2" sx={{ color: "#6A6A6A" }}>
+                Filter data (
+                <span
                   style={{
-                    minWidth: column.minWidth,
-                    backgroundColor: "#f2f2f2",
+                    color: "#0AB56D",
+                    fontSize: "1rem",
+                    fontWeight: "600",
                   }}
                 >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <TableRow
-                  hover
-                  role="checkbox"
-                  tabIndex={-1}
-                  key={row.ticketId}
-                >
-                  {columns.map((column) => {
-                    const value = row[column.id];
-                    return (
-                      <TableCell key={column.id} align="left">
-                        {column.id === "action" ? (
-                          <>
-                            <IconButton aria-label="view">
-                              <VisibilityIcon />
-                            </IconButton>
-                            <IconButton aria-label="duplicate">
-                              <FileCopyIcon />
-                            </IconButton>
-                          </>
-                        ) : (
-                          value
-                        )}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                  9
+                </span>{" "}
+                / 9)
+              </Typography>
+            </Grid>
+          </Grid>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align="left"
+                    style={{
+                      minWidth: column.minWidth,
+                      backgroundColor: "#f2f2f2",
+                    }}
+                  >
+                    <p
+                      style={{
+                        color: "#474747",
+                        fontWeight: "600",
+                        letterSpacing: "0.5px",
+                      }}
+                    >
+                      {" "}
+                      {column.label}
+                    </p>
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => (
+                  <TableRow
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.ticketId}
+                    sx={{ "&:hover": { backgroundColor: "#f2f2f266" } }}
+                  >
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell
+                          key={column.id}
+                          align="left"
+                          sx={{
+                            minWidth: column.minWidth,
+                            borderRight: "0.1px solid #f2f2f2",
+                            color: "#4B4B4B",
+                          }}
+                        >
+                          {column.id === "action" ? (
+                            <>
+                              <IconButton aria-label="view" title="View Ticket">
+                                <VisibilityIcon
+                                  sx={{ color: "#2e5c9e" }}
+                                  onClick={() => {
+                                    navigate("/viewticketdetails");
+                                  }}
+                                />
+                              </IconButton>
+                              <IconButton aria-label="duplicate" title="Clone">
+                                <i
+                                  className="far fa-clone"
+                                  style={{ color: "#2e5c9e" }}
+                                ></i>
+                              </IconButton>
+                            </>
+                          ) : (
+                            value
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
@@ -289,4 +328,5 @@ const MyTickets = () => {
     </Box>
   );
 };
+
 export default withResponsiveDrawer(MyTickets);

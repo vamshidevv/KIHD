@@ -307,11 +307,11 @@ function ResponsiveDrawer({ window, children }) {
           sx={{
             flexGrow: 1,
             minHeight: "100vh",
-            height: "auto",
             backgroundColor: "#f6f6f6",
             p: 3,
             width: { sm: `calc(100% - ${drawerOpen ? drawerWidth : 0}px)` },
             transition: "width 0.3s",
+            overflow: "auto", // Ensure main content is scrollable
           }}
         >
           <Toolbar />
@@ -334,7 +334,7 @@ function ResponsiveDrawer({ window, children }) {
               />
             </div>
           ) : (
-            <div>{children}</div>
+            <div style={{ width: "100%", overflow: "auto" }}>{children}</div> // Ensure the children can overflow and scroll
           )}
         </Box>
       </Box>

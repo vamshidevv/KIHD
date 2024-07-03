@@ -196,14 +196,12 @@ body {
   transition: 0.5s all;
 }
 
-
 @media (max-width: 768px) {
   .dashboard-card {
     width: 100%;
     flex-direction: column;
   }
 }
-
 
 /* DahsBoradcards css ends  here  */
 

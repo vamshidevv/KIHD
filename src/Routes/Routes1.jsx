@@ -4,6 +4,7 @@ import Home from "../Components/Home";
 import SubmitTicket from "../Components/SubmitTicket";
 import MyTickets from "../Components/MyTickets";
 import DashboardCards from "../Components/DashboardCards";
+import ViewTicketDetails from "../Components/ViewTicketDetails";
 
 export const Routes1 = () => {
   return (
@@ -13,6 +14,7 @@ export const Routes1 = () => {
         <Route path="dashboard" element={<DashboardCards />} />
         <Route path="submitticket" element={<SubmitTicket />} />
         <Route path="mytickets" element={<MyTickets />} />
+        <Route path="viewticketdetails" element={<ViewTicketDetails />} />
       </Routes>
     </>
   );
