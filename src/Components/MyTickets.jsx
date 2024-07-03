@@ -207,7 +207,7 @@ const MyTickets = () => {
               paddingLeft: 2,
             }}
           >
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{ position: "sticky" }}>
               <Typography variant="body2" sx={{ color: "#6A6A6A" }}>
                 Filter data (
                 <span

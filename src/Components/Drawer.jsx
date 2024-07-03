@@ -60,6 +60,9 @@ function ResponsiveDrawer({ window, children }) {
       case "/mytickets":
         setActiveSection("My Ticket");
         break;
+      case "/viewticketdetails":
+        setActiveSection("");
+        break;
       default:
         setActiveSection("Dashboard");
     }
@@ -311,7 +314,7 @@ function ResponsiveDrawer({ window, children }) {
             p: 3,
             width: { sm: `calc(100% - ${drawerOpen ? drawerWidth : 0}px)` },
             transition: "width 0.3s",
-            overflow: "auto", // Ensure main content is scrollable
+            overflow: "auto",
           }}
         >
           <Toolbar />
