@@ -127,7 +127,9 @@ const MyTickets = () => {
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
   };
-
+  const handleViewDetails = () => {
+    navigate("/viewticketdetails", { state: { fromMyTickets: true } });
+  };
   return (
     <Box
       sx={{
@@ -276,9 +278,7 @@ const MyTickets = () => {
                               <IconButton aria-label="view" title="View Ticket">
                                 <VisibilityIcon
                                   sx={{ color: "#2e5c9e" }}
-                                  onClick={() => {
-                                    navigate("/viewticketdetails");
-                                  }}
+                                  onClick={handleViewDetails}
                                 />
                               </IconButton>
                               <IconButton aria-label="duplicate" title="Clone">

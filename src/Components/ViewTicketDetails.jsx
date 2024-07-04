@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const ViewTicketDetails = () => {
   const navigate = useNavigate();
   return (
-    <Box p={2}>
+    <Box>
       {/* Back Button */}
       <Button
         variant="contained"
@@ -15,7 +15,7 @@ const ViewTicketDetails = () => {
           backgroundColor: "#2e5c9e",
           "&:hover": { backgroundColor: "#2e5c9ecc" },
         }}
-        onClick={() => navigate("/mytickets")}
+        onClick={() => navigate(-1)}
       >
         Back
       </Button>
@@ -36,24 +36,13 @@ const ViewTicketDetails = () => {
       <Grid container spacing={2}>
         {/* Left Section - View Ticket */}
         <Grid item xs={12} md={12} lg={6}>
-          <Box
-            bgcolor="white"
-            p={2}
-            borderRadius={2}
-            boxShadow={1}
-            border="1px solid #ccc"
-          >
+          <Box bgcolor="white" p={2} boxShadow={1} border="1px solid #ccc">
             <Typography variant="h6" gutterBottom>
               View Ticket
             </Typography>
 
             {/* Contact Details */}
-            <Box
-              p={2}
-              bgcolor="#f9f9f9"
-              borderRadius={2}
-              borderBottom="1px solid #ccc"
-            >
+            <Box p={2} bgcolor="#f9f9f9" borderBottom="1px solid #ccc">
               <Typography
                 variant="h6"
                 gutterBottom
@@ -132,7 +121,7 @@ const ViewTicketDetails = () => {
                     sx={{
                       fontSize: "clamp(13px,2vw,14px)",
                       color: "#474747",
-                      marginBottom: "70px",
+                      marginBottom: { xs: "15px", lg: "70px" },
                     }}
                   >
                     0009000021{" "}
@@ -170,7 +159,7 @@ const ViewTicketDetails = () => {
                     sx={{
                       fontSize: "clamp(13px,2vw,14px)",
                       color: "#474747",
-                      marginBottom: "50px",
+                      marginBottom: { xs: "15px", lg: "50px" },
                     }}
                   >
                     Senior Software Engineer
@@ -343,7 +332,7 @@ const ViewTicketDetails = () => {
                     sx={{
                       fontSize: "clamp(13px,2vw,14px)",
                       color: "#474747",
-                      marginBottom: "100px",
+                      marginBottom: { xs: "20px", lg: "100px" },
                     }}
                   >
                     P2 - High
@@ -417,7 +406,7 @@ const ViewTicketDetails = () => {
                     sx={{
                       fontSize: "clamp(13px,2vw,14px)",
                       color: "#474747",
-                      marginBottom: "170px",
+                      marginBottom: { xs: "25px", lg: "170px" },
                     }}
                   >
                     P3 - Medium
@@ -436,7 +425,7 @@ const ViewTicketDetails = () => {
                     sx={{
                       fontSize: "12px",
                       color: "#808080",
-                      marginBottom: "3px",
+                      marginBottom: "30px",
                     }}
                   >
                     90
@@ -581,7 +570,76 @@ const ViewTicketDetails = () => {
           </Box>
         </Grid>
 
-       
+        {/* Right Section - Conversation */}
+
+        <Grid item xs={12} md={12} lg={6}>
+          <Box
+            bgcolor="white"
+            p={2}
+            borderRadius={2}
+            boxShadow={1}
+            border="1px solid #ccc"
+          >
+            <Typography variant="h6" gutterBottom>
+              Conversation
+            </Typography>
+            <Box
+              mt={2}
+              p={2}
+              //   bgcolor="#f9f9f9"
+              borderBottom="2px dashed #f1c40f"
+              //   borderRadius={2}
+            >
+              <Typography variant="body1">
+                <strong>Priyanka M Executor</strong>
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                20-Jun-2024 04:03 PM
+              </Typography>
+              <Typography mt={1}>
+                Admin reconciliation has been done.
+              </Typography>
+            </Box>
+            <Box
+              mt={2}
+              p={2}
+              //   bgcolor="#f9f9f9"
+              borderBottom="2px dashed #f1c40f"
+              //   borderRadius={2}
+            >
+              <Typography variant="body1">
+                <strong>Nihal Koli Manesh Submitter</strong>
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                19-Jun-2024 12:32 PM
+              </Typography>
+              <Typography mt={1}>
+                Hi Priyanka, My manager approved it. Please take a look.
+              </Typography>
+              <Typography variant="body2" color="primary">
+                Attachment: Screenshot 2024-06-19 123240_131608_24504.png
+              </Typography>
+            </Box>
+            <Box
+              mt={2}
+              p={2}
+              //   bgcolor="#f9f9f9"
+              borderBottom="2px dashed #f1c40f"
+              //   borderRadius={2}
+            >
+              <Typography variant="body1">
+                <strong>Priyanka M Executor</strong>
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                19-Jun-2024 10:47 AM
+              </Typography>
+              <Typography mt={1}>
+                Hello Nihal, Kindly ask your manager to approve the ticket in
+                helpdesk portal.
+              </Typography>
+            </Box>
+          </Box>
+        </Grid>
       </Grid>
     </Box>
   );
