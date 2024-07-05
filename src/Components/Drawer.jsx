@@ -311,7 +311,7 @@ function ResponsiveDrawer({ window, children }) {
             flexGrow: 1,
             minHeight: "100vh",
             backgroundColor: "#f6f6f6",
-            p: 3,
+            p:{xs:0,sm:0 , md:3, lg:3},
             width: { sm: `calc(100% - ${drawerOpen ? drawerWidth : 0}px)` },
             transition: "width 0.3s",
             overflow: "auto",
