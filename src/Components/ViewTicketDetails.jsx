@@ -1,12 +1,129 @@
-import React from "react";
-import { Box, Typography, Button, Grid } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Typography, Button, Grid, Tabs, Tab } from "@mui/material";
 import withResponsiveDrawer from "./withResponsiveDrawer";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+      style={{
+        height: "calc(100vh - 200px)",
+        overflowY: "auto",
+      }}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`,
+  };
+}
 
 const ViewTicketDetails = () => {
+  const [value, setValue] = React.useState(0);
+  const [isHeading, setIsHeading] = useState(true);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+
+    if (value === 0) {
+      setIsHeading(false);
+    }
+    if (value === 1) {
+      setIsHeading(true);
+    }
+  };
+
   const navigate = useNavigate();
+
+  // Reusable style objects
+  const sectionTitleStyle = {
+    color: "#a2a2a2",
+    fontSize: "15px",
+    marginBottom: "10px",
+  };
+
+  const labelStyle = {
+    fontSize: "12px",
+    color: "#808080",
+    marginBottom: "3px",
+  };
+
+  const valueStyle = {
+    fontSize: "clamp(13px,2vw,14px)",
+    color: "#474747",
+    marginBottom: "20px",
+  };
+
+  const boxStyle = {
+    bgcolor: "white",
+    p: 2,
+    boxShadow: 1,
+    // border: "1px solid #ccc",
+    mb: 4,
+  };
+
+  const innerBoxStyle = {
+    p: 2,
+    bgcolor: "#f9f9f9",
+    borderBottom: "1px solid #ccc",
+  };
+
+  const nameStyle = {
+    fontSize: "1rem",
+    color: "#474747",
+  };
+  const personsPost = {
+    fontSize: "12px",
+    color: "#959494",
+  };
+  const dateStyle = {
+    color: "#A1A1A1",
+    fontSize: "11.2px",
+    marginTop: "5px",
+  };
+
+  const msgStyle = {
+    color: "#707070",
+    fontSize: "14px",
+  };
+
+  const headingStyle = {
+    backgroundColor: "#e4e4e4",
+    borderRadius: "0.3rem",
+    color: "#6c6c6c",
+    fontSize: "clamp(.7rem,2vw,1rem)",
+    width: "96%",
+    textAlign: "center",
+    padding: "0.8rem",
+    fontWeight: "700",
+    margin: "0 5px",
+  };
+
   return (
-    <Box>
+    <Box spacing={2} sx={{ border: "1px solid red", marginBottom: "40px" }}>
       {/* Back Button */}
       <Button
         variant="contained"
@@ -28,158 +145,48 @@ const ViewTicketDetails = () => {
         >
           Ticket ID: 131608 Status - Closed
         </Typography>
-        <Typography sx={{ color: "#808080", fontSize: "clamp(15px,2vw,px)" }}>
+        <Typography sx={{ color: "#808080", fontSize: "clamp(15px,2vw,15px)" }}>
           Requested Date: 19-Jun-2024 09:59 AM
         </Typography>
       </Box>
 
       <Grid container spacing={2}>
         {/* Left Section - View Ticket */}
-        <Grid item xs={12} md={12} lg={6}>
-          <Box bgcolor="white" p={2} boxShadow={1} border="1px solid #ccc">
+        <Grid item xs={12} md={12} lg={5} sx={{ marginRight: "20px" }}>
+          <Box sx={boxStyle}>
             <Typography variant="h6" gutterBottom>
               View Ticket
             </Typography>
 
             {/* Contact Details */}
-            <Box p={2} bgcolor="#f9f9f9" borderBottom="1px solid #ccc">
-              <Typography
-                variant="h6"
-                gutterBottom
-                sx={{ color: "#a2a2a2", fontSize: "15px" }}
-              >
+            <Box sx={innerBoxStyle}>
+              <Typography variant="h6" gutterBottom sx={sectionTitleStyle}>
                 Contact Details
               </Typography>
               <Grid container spacing={2}>
                 <Grid item xs={12} md={4}>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Employee Name:{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Nihal Koli Manesh{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Email Id:{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "3px",
-                    }}
-                  >
+                  <Typography sx={labelStyle}>Employee Name:</Typography>
+                  <Typography sx={valueStyle}>Nihal Koli Manesh</Typography>
+                  <Typography sx={labelStyle}>Email Id:</Typography>
+                  <Typography sx={valueStyle}>
                     nihal.koli@excelindia.com
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Location:{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    MYSORE{" "}
-                  </Typography>
+                  <Typography sx={labelStyle}>Location:</Typography>
+                  <Typography sx={valueStyle}>MYSORE</Typography>
                 </Grid>
                 <Grid item xs={12} md={4}>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Employee Code:{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: { xs: "15px", lg: "70px" },
-                    }}
-                  >
-                    0009000021{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Contact No:{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    9106330420
-                  </Typography>
+                  <Typography sx={labelStyle}>Employee Code:</Typography>
+                  <Typography sx={valueStyle}>0009000021</Typography>
+                  <Typography sx={labelStyle}>Contact No:</Typography>
+                  <Typography sx={valueStyle}>9106330420</Typography>
                 </Grid>
                 <Grid item xs={12} md={4}>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Designation:{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: { xs: "15px", lg: "50px" },
-                    }}
-                  >
+                  <Typography sx={labelStyle}>Designation:</Typography>
+                  <Typography sx={valueStyle}>
                     Senior Software Engineer
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Department:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "30px",
-                    }}
-                  >
+                  <Typography sx={labelStyle}>Department:</Typography>
+                  <Typography sx={valueStyle}>
                     Dept: Pearson Learning Services
                   </Typography>
                 </Grid>
@@ -187,456 +194,286 @@ const ViewTicketDetails = () => {
             </Box>
 
             {/* Ticket Details */}
-            <Box p={2} bgcolor="#f9f9f9" borderRadius={2}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                sx={{ color: "#a2a2a2", fontSize: "15px" }}
-              >
+            <Box sx={{ ...innerBoxStyle, borderRadius: 2 }}>
+              <Typography variant="h6" gutterBottom sx={sectionTitleStyle}>
                 Ticket Details
               </Typography>
               <Grid container spacing={2}>
                 <Grid item xs={12} md={4}>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Division:{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    IT Systems
-                  </Typography>
-
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Assigned to:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    Priyanka M
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
+                  <Typography sx={labelStyle}>Division:</Typography>
+                  <Typography sx={valueStyle}>IT Systems</Typography>
+                  <Typography sx={labelStyle}>Assigned to:</Typography>
+                  <Typography sx={valueStyle}>Priyanka M</Typography>
+                  <Typography sx={labelStyle}>
                     Executor Contact Number:
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    7204529828
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Category by executor:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    USB/Admin Access
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Class:{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    Service
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    {" "}
+                  <Typography sx={valueStyle}>7204529828</Typography>
+                  <Typography sx={labelStyle}>Category by executor:</Typography>
+                  <Typography sx={valueStyle}>USB/Admin Access</Typography>
+                  <Typography sx={labelStyle}>Class:</Typography>
+                  <Typography sx={valueStyle}>Service</Typography>
+                  <Typography sx={{ ...labelStyle, marginBottom: "10px" }}>
                     <input type="checkbox" checked /> Send reminder email
                   </Typography>
                 </Grid>
 
                 <Grid item xs={12} md={4}>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Category:{" "}
+                  <Typography sx={labelStyle}>Category:</Typography>
+                  <Typography sx={valueStyle}>Access Review</Typography>
+                  <Typography sx={labelStyle}>
+                    Priority by Submitter:
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    Access Review{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Priority by Submitter:{" "}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
+                      ...valueStyle,
                       marginBottom: { xs: "20px", lg: "100px" },
                     }}
                   >
                     P2 - High
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
+                  <Typography sx={labelStyle}>
                     Subcategory by executor:
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "30px",
-                    }}
-                  >
+                  <Typography sx={valueStyle}>
                     Renewal of Admin Rights
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Duration Type:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    Temporary
-                  </Typography>
+                  <Typography sx={labelStyle}>Duration Type:</Typography>
+                  <Typography sx={valueStyle}>Temporary</Typography>
                 </Grid>
                 <Grid item xs={12} md={4}>
+                  <Typography sx={labelStyle}>Subcategory:</Typography>
+                  <Typography sx={valueStyle}>Admin Rights</Typography>
+                  <Typography sx={labelStyle}>Priority by Executor:</Typography>
                   <Typography
                     sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Subcategory
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    Admin Rights
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    Priority by Executor:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "clamp(13px,2vw,14px)",
-                      color: "#474747",
+                      ...valueStyle,
                       marginBottom: { xs: "25px", lg: "170px" },
                     }}
                   >
                     P3 - Medium
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "3px",
-                    }}
-                  >
-                    {" "}
-                    Duration Days:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      color: "#808080",
-                      marginBottom: "30px",
-                    }}
-                  >
-                    90
-                  </Typography>
+                  <Typography sx={labelStyle}>Duration Days:</Typography>
+                  <Typography sx={valueStyle}>90</Typography>
                 </Grid>
               </Grid>
               <Grid item xs={12} md={12} lg={12}>
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#808080",
-                    marginBottom: "3px",
-                  }}
-                >
-                  Subject
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "clamp(13px,2vw,14px)",
-                    color: "#474747",
-                    marginBottom: "20px",
-                  }}
-                >
+                <Typography sx={labelStyle}>Subject:</Typography>
+                <Typography sx={valueStyle}>
                   Request for New Admin Access Password
                 </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#808080",
-                    marginBottom: "3px",
-                  }}
-                >
-                  Description
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "clamp(13px,2vw,14px)",
-                    color: "#474747",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Dear IT Helpdesk Team,
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "clamp(13px,2vw,14px)",
-                    color: "#474747",
-                    marginBottom: "20px",
-                  }}
-                >
+                <Typography sx={labelStyle}>Description:</Typography>
+                <Typography sx={valueStyle}>Dear IT Helpdesk Team,</Typography>
+                <Typography sx={valueStyle}>
                   I hope this email finds you well. I am writing to request
                   assistance with resetting my admin access password. The
                   previous password has expired, and I am unable to access the
                   necessary systems and tools required for my role.
                 </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "clamp(13px,2vw,14px)",
-                    color: "#474747",
-                    marginBottom: "20px",
-                  }}
-                >
-                  {" "}
+                <Typography sx={valueStyle}>
                   Could you kindly reset my admin access password and provide me
                   with the new credentials.
                 </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "clamp(13px,2vw,14px)",
-                    color: "#474747",
-                    marginBottom: "3px",
-                  }}
-                >
-                  Best regards,
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "clamp(13px,2vw,14px)",
-                    color: "#474747",
-                    marginBottom: "20px",
-                  }}
-                >
-                  Nihal Koli
-                </Typography>
-
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#808080",
-                    marginBottom: "3px",
-                  }}
-                >
-                  Attachment
-                </Typography>
+                <Typography sx={valueStyle}>Best regards,</Typography>
+                <Typography sx={valueStyle}>Nihal Koli</Typography>
+                <Typography sx={labelStyle}>Attachment:</Typography>
                 <Typography
                   variant="body2"
                   color="primary"
-                  sx={{
-                    marginBottom: "20px",
-                  }}
+                  sx={{ marginBottom: "20px" }}
                 >
                   Screenshot 2024-06-19 123240_131608_24504.png
                 </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#808080",
-                    marginBottom: "3px",
-                  }}
-                >
-                  Closing Remarks:
+                <Typography sx={labelStyle}>Closing Remarks:</Typography>
+                <Typography sx={valueStyle}>
+                  Admin reconciliation has been done. Hence closing the ticket.
                 </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "clamp(13px,2vw,14px)",
-                    color: "#474747",
-                    marginBottom: "20px",
-                  }}
-                >
-                  admin reconciliation has been done. Hence closing the ticket.
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#808080",
-                    marginBottom: "3px",
-                  }}
-                >
-                  Closed Date:
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "clamp(13px,2vw,14px)",
-                    color: "#474747",
-                    marginBottom: "20px",
-                  }}
-                >
-                  20-Jun-2024 04:03 PM
-                </Typography>
+                <Typography sx={labelStyle}>Closed Date:</Typography>
+                <Typography sx={valueStyle}>20-Jun-2024 04:03 PM</Typography>
               </Grid>
             </Box>
           </Box>
         </Grid>
 
-        {/* Right Section - Conversation */}
+        {/* Right Section - Tabs */}
 
         <Grid item xs={12} md={12} lg={6}>
           <Box
-            bgcolor="white"
-            p={2}
-            borderRadius={2}
-            boxShadow={1}
-            border="1px solid #ccc"
+            sx={{
+              flexGrow: 1,
+              display: "flex",
+              ...boxStyle,
+              height: "97.5%",
+              paddingRight: "0px",
+              paddingLeft: "0px",
+            }}
           >
-            <Typography variant="h6" gutterBottom>
-              Conversation
-            </Typography>
-            <Box
-              mt={2}
-              p={2}
-              //   bgcolor="#f9f9f9"
-              borderBottom="2px dashed #f1c40f"
-              //   borderRadius={2}
+            <Tabs
+              orientation="vertical"
+              variant="scrollable"
+              value={value}
+              onChange={handleChange}
+              aria-label="Vertical tabs example"
+              sx={{ border: "none", borderColor: "divider", height: "auto" }}
             >
-              <Typography variant="body1">
-                <strong>Priyanka M Executor</strong>
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                20-Jun-2024 04:03 PM
-              </Typography>
-              <Typography mt={1}>
-                Admin reconciliation has been done.
-              </Typography>
-            </Box>
-            <Box
-              mt={2}
-              p={2}
-              //   bgcolor="#f9f9f9"
-              borderBottom="2px dashed #f1c40f"
-              //   borderRadius={2}
-            >
-              <Typography variant="body1">
-                <strong>Nihal Koli Manesh Submitter</strong>
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                19-Jun-2024 12:32 PM
-              </Typography>
-              <Typography mt={1}>
-                Hi Priyanka, My manager approved it. Please take a look.
-              </Typography>
-              <Typography variant="body2" color="primary">
-                Attachment: Screenshot 2024-06-19 123240_131608_24504.png
-              </Typography>
-            </Box>
-            <Box
-              mt={2}
-              p={2}
-              //   bgcolor="#f9f9f9"
-              borderBottom="2px dashed #f1c40f"
-              //   borderRadius={2}
-            >
-              <Typography variant="body1">
-                <strong>Priyanka M Executor</strong>
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                19-Jun-2024 10:47 AM
-              </Typography>
-              <Typography mt={1}>
-                Hello Nihal, Kindly ask your manager to approve the ticket in
-                helpdesk portal.
-              </Typography>
+              <Tab
+                label="Conversation"
+                {...a11yProps(0)}
+                sx={{
+                  "&.Mui-selected": {
+                    backgroundColor: "#2e5c9e",
+                    color: "#fff",
+                    transition: "0.3s all",
+                  },
+                }}
+              />
+              <Tab
+                label="Approval Details"
+                {...a11yProps(1)}
+                sx={{
+                  "&.Mui-selected": {
+                    backgroundColor: "#2e5c9e",
+                    color: "#fff",
+                    transition: "0.3s all",
+                    border: "none",
+                  },
+                }}
+              />
+            </Tabs>
+            <Box sx={{ width: "100%" }}>
+              <Box sx={headingStyle}>
+                {isHeading === true ? "Conversation" : "Approval Details"}
+              </Box>
+
+              <TabPanel value={value} index={0}>
+                <Box
+                  sx={{
+                    border: "1px solid green",
+                    height: "400px",
+                    overflowY: "scroll",
+                    "&::-webkit-scrollbar": {
+                      width: "12px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      background: "#f1f1f1",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      background: "#888",
+                      border: "3px solid #f1f1f1",
+                    },
+                    "&::-webkit-scrollbar-thumb:hover": {
+                      background: "#474747c7",
+                    },
+                  }}
+                >
+                  <Box mt={1} p={2} borderBottom="2px dashed #f1c40f">
+                    <Typography variant="body1" sx={nameStyle}>
+                      Priyanka M{" "}
+                      <Typography
+                        variant="body2"
+                        component="span"
+                        sx={personsPost}
+                      >
+                        Executor
+                      </Typography>
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      sx={dateStyle}
+                    >
+                      20-Jun-2024 04:03 PM
+                    </Typography>
+                    <Typography mt={1} sx={msgStyle}>
+                      admin reconciliation has been done.
+                    </Typography>
+                  </Box>
+                  <Box mt={1} p={2} borderBottom="2px dashed #f1c40f">
+                    <Typography variant="body1" sx={nameStyle}>
+                      Nihal Koli Manesh{" "}
+                      <Typography
+                        variant="body2"
+                        component="span"
+                        sx={personsPost}
+                      >
+                        Submitter
+                      </Typography>
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      sx={dateStyle}
+                    >
+                      19-Jun-2024 12:32 PM
+                    </Typography>
+                    <Typography mt={1} sx={msgStyle}>
+                      Hi Priyanka, My manager approved it. Please take a look.
+                    </Typography>
+                    <Typography variant="body2" color="primary">
+                      Attachment: Screenshot 2024-06-19 123240_131608_24504.png
+                    </Typography>
+                  </Box>
+                  <Box mt={1} p={2} borderBottom="2px dashed #f1c40f">
+                    <Typography variant="body1" sx={nameStyle}>
+                      Priyanka M
+                      <Typography
+                        variant="body2"
+                        component="span"
+                        sx={personsPost}
+                      >
+                        {" "}
+                        Executor
+                      </Typography>
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      sx={dateStyle}
+                    >
+                      19-Jun-2024 10:25 AM
+                    </Typography>
+                    <Typography mt={1} sx={msgStyle}>
+                      Hi Nihal, Your admin access renewal request has been
+                      received. Can you please provide additional details and
+                      approvals from your manager for processing?
+                    </Typography>
+                  </Box>
+                </Box>
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                <Typography
+                  paragraph
+                  sx={{ borderBottom: "2px dashed #f1c40f" }}
+                >
+                  <Typography sx={labelStyle}>Executor Names</Typography>
+                  <Typography sx={valueStyle}>Priyanka M</Typography>
+                  <Typography sx={labelStyle}>Executor Remarks</Typography>
+                  <Typography sx={valueStyle}>
+                    The above user is contract employee, He need admin access to
+                    run the comment prompt in run as administrator mode. I
+                    kindly request you to approve the same.
+                  </Typography>
+                  <Typography sx={labelStyle}>Sent for approval on</Typography>
+                  <Typography sx={valueStyle}>19-Jun-2024 12:38 PM</Typography>
+                  <Typography sx={labelStyle}>Approver Name</Typography>
+                  <Typography sx={valueStyle}>Srinivas Chudamani</Typography>
+                  <Typography sx={labelStyle}>Approver Remarks</Typography>
+                  <Typography sx={valueStyle}>Approved</Typography>
+                  <Typography sx={labelStyle}>Status</Typography>
+                  <Typography
+                    sx={{
+                      color: "green",
+                      fontSize: "14px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    Approved
+                  </Typography>
+                  <Typography sx={labelStyle}>
+                    Approved/Rejected/Revoked Date
+                  </Typography>
+                  <Typography sx={valueStyle}>20-Jun-2024 03:47 PM</Typography>
+                </Typography>
+              </TabPanel>
             </Box>
           </Box>
         </Grid>
