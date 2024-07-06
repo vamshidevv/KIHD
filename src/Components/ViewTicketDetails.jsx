@@ -168,30 +168,8 @@ const ViewTicketDetails = () => {
             Requested Date: 19-Jun-2024 09:59 AM
           </Typography>
         </Box>
-        <Button
-          variant="contained"
-          sx={{
-            marginTop: "40px",
-            marginBottom: "10px",
-            fontWeight: "500",
-            backgroundColor: "#2e5c9e",
-            padding: "10px 5px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "12px",
-            "&:hover": { backgroundColor: "#2e5c9ecc" },
-          }}
-        >
-          <HistoryIcon
-            sx={{
-              color: "#fff",
-              fontSize: "1.2rem",
-            }}
-          />{" "}
-          Ticket History
-        </Button>
-        {/* <TicketHistory /> */}
+
+        <TicketHistory />
       </Box>
 
       <Grid container spacing={2}>
