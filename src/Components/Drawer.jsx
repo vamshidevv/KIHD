@@ -31,7 +31,7 @@ function ResponsiveDrawer({ window, children }) {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(true); // Initially open on desktop
+  const [drawerOpen, setDrawerOpen] = useState(true); 
   const [username, setUsername] = useState(localStorage.getItem("username"));
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
   const [activeSection, setActiveSection] = useState("Dashboard");
@@ -39,7 +39,7 @@ function ResponsiveDrawer({ window, children }) {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 1000);
 
     const username = localStorage.getItem("username");
 

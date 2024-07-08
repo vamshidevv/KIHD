@@ -127,7 +127,7 @@ export default function TicketHistory() {
  @keyframes slide {
       0% {
         position: absolute;
-        top: 30%;
+        top: 30%;     
         opacity: 0;
       }
       100% {

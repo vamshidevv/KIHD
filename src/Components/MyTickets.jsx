@@ -128,7 +128,8 @@ const MyTickets = () => {
     setStatus(event.target.value);
   };
   const handleViewDetails = () => {
-    navigate("/viewticketdetails", { state: { fromMyTickets: true } });
+    sessionStorage.setItem("canNavigate", "true");
+    navigate("/viewticketdetails");
   };
   return (
     <Box

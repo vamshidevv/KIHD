@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Button, Grid, Tabs, Tab } from "@mui/material";
 import withResponsiveDrawer from "./withResponsiveDrawer";
 import { useNavigate } from "react-router-dom";
@@ -44,6 +44,12 @@ function a11yProps(index) {
 }
 
 const ViewTicketDetails = () => {
+  useEffect(() => {
+    return () => {
+      sessionStorage.setItem("canNavigate", "false");
+    };
+  }, []);
+
   const [value, setValue] = React.useState(0);
   const [isHeading, setIsHeading] = useState(true);
 
@@ -205,7 +211,15 @@ const ViewTicketDetails = () => {
                   </Grid>
                   <Grid item xs={12} md={4}>
                     <Typography sx={labelStyle}>Employee Code:</Typography>
-                    <Typography sx={valueStyle}>0009000021</Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "clamp(13px,2vw,14px)",
+                        color: "#474747",
+                        marginBottom: "85px",
+                      }}
+                    >
+                      0009000021
+                    </Typography>
                     <Typography sx={labelStyle}>Contact No:</Typography>
                     <Typography sx={valueStyle}>9106330420</Typography>
                   </Grid>
@@ -253,7 +267,8 @@ const ViewTicketDetails = () => {
                     <Typography sx={labelStyle}>Class:</Typography>
                     <Typography sx={valueStyle}>Service</Typography>
                     <Typography sx={{ ...labelStyle, marginBottom: "10px" }}>
-                      <input type="checkbox" checked /> Send reminder email
+                      <input type="checkbox" defaultChecked /> Send reminder
+                      email
                     </Typography>
                   </Grid>
 
@@ -367,11 +382,12 @@ const ViewTicketDetails = () => {
                 sx={{
                   fontSize: "12px",
                   letterSpacing: "0px",
-
+                  borderBottom: "1px solid #ccc",
                   "&.Mui-selected": {
                     backgroundColor: "#2e5c9e",
                     color: "#fff",
                     transition: "0.3s all",
+                    border: "none",
                   },
                 }}
               />
@@ -417,7 +433,7 @@ const ViewTicketDetails = () => {
                     },
                   }}
                 >
-                  <Box mt={1} p={2} borderBottom="2px dashed #f1c40f">
+                  <Box mt={1} p={2}>
                     <Typography variant="body1" sx={nameStyle}>
                       Priyanka M{" "}
                       <Typography
@@ -438,8 +454,12 @@ const ViewTicketDetails = () => {
                     <Typography mt={1} sx={msgStyle}>
                       admin reconciliation has been done.
                     </Typography>
+                    <Typography
+                      pt={2}
+                      sx={{ borderBottom: "2px dashed #f1c40f" }}
+                    ></Typography>
                   </Box>
-                  <Box mt={1} p={2} borderBottom="2px dashed #f1c40f">
+                  <Box p={2}>
                     <Typography variant="body1" sx={nameStyle}>
                       Nihal Koli Manesh{" "}
                       <Typography
@@ -463,8 +483,12 @@ const ViewTicketDetails = () => {
                     <Typography variant="body2" color="primary">
                       Attachment: Screenshot 2024-06-19 123240_131608_24504.png
                     </Typography>
+                    <Typography
+                      pt={2}
+                      sx={{ borderBottom: "2px dashed #f1c40f" }}
+                    ></Typography>
                   </Box>
-                  <Box mt={1} p={2} borderBottom="2px dashed #f1c40f">
+                  <Box p={2}>
                     <Typography variant="body1" sx={nameStyle}>
                       Priyanka M
                       <Typography
@@ -483,16 +507,22 @@ const ViewTicketDetails = () => {
                     >
                       19-Jun-2024 10:25 AM
                     </Typography>
-                    <Typography mt={1} sx={msgStyle}>
+                    <Typography sx={msgStyle}>
                       Hi Nihal, Your admin access renewal request has been
                       received. Can you please provide additional details and
                       approvals from your manager for processing?
                     </Typography>
+                    <Typography
+                      pt={2}
+                      sx={{ borderBottom: "2px dashed #f1c40f" }}
+                    ></Typography>
                   </Box>
                 </Box>
               </TabPanel>
               <TabPanel value={value} index={1}>
                 <Box
+                  mt={1}
+                  p={1}
                   sx={{
                     height: "400px",
                     paddingBottom: "30px",

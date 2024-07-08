@@ -206,6 +206,7 @@ body {
 /* DahsBoradcards css ends  here  */
 
 /* important form css for asteric starts here*/
+
 .imp {
   color: red;
 }
@@ -213,5 +214,7 @@ body {
 /* important form css for asteric ends here*/
 
 /* view ticket details css starts here */
-
+.css-19kzrtu {
+  padding: 0 !important;
+}
 /* view ticket details css ends here */
