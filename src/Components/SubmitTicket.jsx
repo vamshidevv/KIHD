@@ -39,17 +39,16 @@ const validationSchema = Yup.object().shape({
   priority: Yup.string().required("Priority is required"),
 });
 
-// Custom styled TextField with consistent border color and focus behavior
 const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "#e3e3e3", // Standard border color
+      borderColor: "#e3e3e3",
     },
     "&:hover fieldset": {
-      borderColor: "#e3e3e3", // Hover border color
+      borderColor: "#e3e3e3",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "#e3e3e3", // Focused border color
+      borderColor: "#e3e3e3",
     },
   },
   "& .MuiInputBase-input": {
@@ -63,13 +62,13 @@ const CustomTextField = styled(TextField)({
 const TicketDetailsTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "#e3e3e3", // Custom border color
+      borderColor: "#e3e3e3",
     },
     "&:hover fieldset": {
-      borderColor: "#e3e3e3", // Hover border color
+      borderColor: "#e3e3e3",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "#2e5c9e61", // Focused border color
+      borderColor: "#2e5c9e61",
       borderWidth: "3px",
     },
   },
@@ -81,9 +80,7 @@ const TicketDetailsTextField = styled(TextField)({
 });
 
 const SubmitTicket = () => {
-  const [fileSizeError, setFileSizeError] = useState(false); // State to manage file size error
-
-  // Define a custom theme with overrides for MenuItem
+  const [fileSizeError, setFileSizeError] = useState(false);
   const theme = createTheme({
     components: {
       MuiMenuItem: {
@@ -102,6 +99,7 @@ const SubmitTicket = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box
+        pb={2}
         sx={{
           backgroundColor: "white",
           marginBottom: "100px",
@@ -111,8 +109,8 @@ const SubmitTicket = () => {
       >
         <Box sx={{ padding: 3 }}>
           <Typography
+            p={2}
             variant="h5"
-            gutterBottom
             sx={{
               color: "#474747",
               fontSize: "clamp(15px,2vw,20px)",
@@ -122,6 +120,7 @@ const SubmitTicket = () => {
             Submit a New Ticket
           </Typography>
           <Typography
+            pl={2}
             variant="body2"
             color="textSecondary"
             sx={{ mb: "2rem", color: "#A4A4A4", fontSize: "13px" }}

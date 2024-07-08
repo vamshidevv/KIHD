@@ -31,6 +31,19 @@ const style = {
   p: 4,
   maxHeight: "80vh",
   overflow: "auto",
+  "&::-webkit-scrollbar": {
+    width: "8px",
+  },
+  "&::-webkit-scrollbar-track": {
+    background: "#f1f1f1",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    background: "#888",
+    border: "1px solid #f1f1f1",
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    background: "#474747c7",
+  },
 };
 
 const rows = [
@@ -106,6 +119,16 @@ const rows = [
   },
 ];
 
+// Custome  styles
+
+const headingStyle = {
+  color: "#000000bd",
+  fontWeight: 550,
+};
+const dataStyle = {
+  color: "#000000bd",
+};
+
 export default function TicketHistory() {
   const [open, setOpen] = React.useState(false);
   const [page, setPage] = React.useState(0);
@@ -123,23 +146,8 @@ export default function TicketHistory() {
     setPage(0);
   };
 
-  const slideAnimation = `
- @keyframes slide {
-      0% {
-        position: absolute;
-        top: 30%;     
-        opacity: 0;
-      }
-      100% {
-        position: absolute;
-        top: 0%;
-        opacity: 1;
-      }
-    }
-`;
-
   return (
-    <div>
+    <>
       <Button
         onClick={handleOpen}
         variant="contained"
@@ -179,16 +187,10 @@ export default function TicketHistory() {
         style={{}}
       >
         <Fade in={open}>
-          <Box
-            sx={style}
-            style={{
-              border: "1px solid red",
-              animation: "slide 0.5s ease-in-out forwards",
-              animationName: slideAnimation,
-            }}
-          >
+          <Box sx={style}>
             <Grid
               container
+              mb={1}
               spacing={2}
               justifyContent="space-between"
               alignItems="center"
@@ -198,37 +200,51 @@ export default function TicketHistory() {
                   id="transition-modal-title"
                   variant="h6"
                   component="h2"
+                  sx={{
+                    color: "#474747",
+                    fontWeight: "500",
+                  }}
                 >
                   Ticket History - 131608
                 </Typography>
               </Grid>
               <Grid item>
-                <IconButton onClick={handleClose}>
+                <IconButton
+                  onClick={handleClose}
+                  sx={{
+                    backgroundColor: "transparent",
+                    "&:hover": { color: "#2e5c9e" },
+                  }}
+                >
                   <CloseIcon />
                 </IconButton>
               </Grid>
             </Grid>
-            <TableContainer component={Paper}>
+            <Box mb={3} sx={{ border: "1px solid #cccccc7d" }}></Box>
+            <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
               <Table>
-                <TableHead>
+                <TableHead sx={{ backgroundColor: "#fafafa" }}>
                   <TableRow>
-                    <TableCell>Modified By</TableCell>
-                    <TableCell>Assigned To</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Priority</TableCell>
-                    <TableCell>Modified Date</TableCell>
+                    <TableCell sx={headingStyle}>Modified By</TableCell>
+                    <TableCell sx={headingStyle}>Assigned To</TableCell>
+                    <TableCell sx={headingStyle}>Status</TableCell>
+                    <TableCell sx={headingStyle}>Priority</TableCell>
+                    <TableCell sx={headingStyle}>Modified Date</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {rows
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{row.modifiedBy}</TableCell>
-                        <TableCell>{row.assignedTo}</TableCell>
-                        <TableCell>{row.status}</TableCell>
-                        <TableCell>{row.priority}</TableCell>
-                        <TableCell>{row.modifiedDate}</TableCell>
+                      <TableRow
+                        key={index}
+                        sx={{ "&:hover": { backgroundColor: "#fafafa" } }}
+                      >
+                        <TableCell sx={dataStyle}>{row.modifiedBy}</TableCell>
+                        <TableCell sx={dataStyle}>{row.assignedTo}</TableCell>
+                        <TableCell sx={dataStyle}>{row.status}</TableCell>
+                        <TableCell sx={dataStyle}>{row.priority}</TableCell>
+                        <TableCell sx={dataStyle}>{row.modifiedDate}</TableCell>
                       </TableRow>
                     ))}
                 </TableBody>
@@ -246,6 +262,6 @@ export default function TicketHistory() {
           </Box>
         </Fade>
       </Modal>
-    </div>
+    </>
   );
 }
