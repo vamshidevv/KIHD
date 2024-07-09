@@ -2,44 +2,83 @@
   "user": [
     {
       "id": 1,
-      "email": "john@gmail.com",
       "username": "vamshi",
+      "empolyeecode": "0009000069",
+      "email": "vamshi@gmail.com",
+      "designation": "front end developer",
+      "department": "react",
+      "location": "Surat",
+      "contact":"9856321474",
       "password": "123456"
     },
     {
       "id": 2,
-      "email": "morrison@gmail.com",
       "username": "shivam",
+      "empolyeecode": "0009000026",
+      "email": "shivam@gmail.com",
+      "designation": "back end developer",
+      "department": "node",
+      "location": "mumbai",
+      "contact":"8856324215",
       "password": "789456"
     },
     {
       "id": 3,
-      "email": "kevin@gmail.com",
+
       "username": "kevinryan",
+      "empolyeecode": "0009000030",
+      "email": "kevin@gmail.com",
+      "designation": "fullstack developer",
+      "department": "IT",
+      "location": "mumbai",
+      "contact":"7849653215",
       "password": "kev02937@"
     },
     {
       "id": 4,
-      "email": "don@gmail.com",
+
       "username": "donero",
+      "empolyeecode": "0009000044",
+      "email": "don@gmail.com",
+      "designation": "UiUx",
+      "department": "designing",
+      "location": "surat",
+      "contact":"6359821474",
       "password": "ewedon"
     },
     {
       "id": 5,
-      "email": "derek@gmail.com",
       "username": "derek",
+      "empolyeecode": "0009000056",
+      "email": "derek@gmail.com",
+      "designation": "data analyst",
+      "department": "management",
+      "location": "mumbai",
+      "contact":"9562147836",
       "password": "jklg*_56"
     },
     {
       "id": 6,
-      "email": "david_r@gmail.com",
-      "username": "david_r",
+
+      "username": "david r",
+      "empolyeecode": "0009000043",
+      "email": "david.r@gmail.com",
+      "designation": "front end developer",
+      "department": "Angular",
+      "location": "pune",
+      "contact":"8856471123",
       "password": "3478*#54"
     },
     {
       "id": 7,
-      "email": "kendric_l@gmail.com",
+
       "username": "kendrick lamar",
+      "empolyeecode": "0009000043",
+      "email": "kendric_l@gmail.com",
+      "designation": "back end developer",
+      "department": "python",
+      "location": "pune",
+      "contact":"6652478899",
       "password": "456123"
     }
   ]

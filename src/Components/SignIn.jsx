@@ -51,9 +51,11 @@ export default function SignIn() {
           );
           if (foundUser) {
             localStorage.setItem("username", foundUser.username);
+            console.log("---> ", foundUser);
+            localStorage.setItem("foundUser" , JSON.stringify(foundUser))
             navigate("/dashboard");
           } else {
-            setAlertMessage("Invalid Username and Password"); // Set alert message state
+            setAlertMessage("Invalid Username and Password");
           }
         })
         .catch((error) => {

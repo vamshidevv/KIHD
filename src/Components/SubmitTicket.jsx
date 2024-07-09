@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   TextField,
@@ -12,13 +12,13 @@ import {
   Alert,
 } from "@mui/material";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup"; // Import Yup for validation
+import * as Yup from "yup"; 
 import withResponsiveDrawer from "./withResponsiveDrawer";
 import { styled } from "@mui/system";
 import InfoIcon from "@mui/icons-material/Info";
 
 const initialValues = {
-  contactNumber: "9874563212",
+  contactNumber: "",
   type: "",
   category: "",
   subcategory: "",
@@ -80,6 +80,14 @@ const TicketDetailsTextField = styled(TextField)({
 });
 
 const SubmitTicket = () => {
+  const [user, setUser] = useState({});
+  console.log("userState", user);
+
+  useEffect(() => {
+    const getUser = localStorage.getItem("foundUser");
+    setUser(JSON.parse(getUser));
+  }, []);
+
   const [fileSizeError, setFileSizeError] = useState(false);
   const theme = createTheme({
     components: {
@@ -99,7 +107,7 @@ const SubmitTicket = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box
-        pb={2}
+        p={2}
         sx={{
           backgroundColor: "white",
           marginBottom: "100px",
@@ -148,7 +156,7 @@ const SubmitTicket = () => {
                       borderColor="gray"
                       borderRadius="4px"
                       padding={3}
-                    >
+                      >
                       <legend
                         style={{
                           padding: "0 10px",
@@ -174,9 +182,14 @@ const SubmitTicket = () => {
                           <CustomTextField
                             fullWidth
                             variant="outlined"
-                            value="Nihal Koli Manesh"
+                            value={user.username}
                             InputProps={{ readOnly: true }}
-                            sx={{ marginTop: "5px" }}
+                            sx={{
+                              marginTop: "5px",
+                              "& input": {
+                                textTransform: "capitalize",
+                              },
+                            }}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
@@ -189,9 +202,14 @@ const SubmitTicket = () => {
                           <CustomTextField
                             fullWidth
                             variant="outlined"
-                            value="0009000021"
+                            value={user.empolyeecode}
                             InputProps={{ readOnly: true }}
-                            sx={{ marginTop: "5px" }}
+                            sx={{
+                              marginTop: "5px",
+                              "& input": {
+                                textTransform: "capitalize",
+                              },
+                            }}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
@@ -204,7 +222,7 @@ const SubmitTicket = () => {
                           <CustomTextField
                             fullWidth
                             variant="outlined"
-                            value="nihal.koli@excelindia.com"
+                            value={user.email}
                             InputProps={{ readOnly: true }}
                             sx={{ marginTop: "5px" }}
                           />
@@ -219,9 +237,14 @@ const SubmitTicket = () => {
                           <CustomTextField
                             fullWidth
                             variant="outlined"
-                            value="Senior Software Engineer"
+                            value={user.designation}
                             InputProps={{ readOnly: true }}
-                            sx={{ marginTop: "5px" }}
+                            sx={{
+                              marginTop: "5px",
+                              "& input": {
+                                textTransform: "capitalize",
+                              },
+                            }}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
@@ -234,9 +257,14 @@ const SubmitTicket = () => {
                           <CustomTextField
                             fullWidth
                             variant="outlined"
-                            value="Dept: Pearson Learning Services"
+                            value={user.department}
                             InputProps={{ readOnly: true }}
-                            sx={{ marginTop: "5px" }}
+                            sx={{
+                              marginTop: "5px",
+                              "& input": {
+                                textTransform: "capitalize",
+                              },
+                            }}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
@@ -249,9 +277,14 @@ const SubmitTicket = () => {
                           <CustomTextField
                             fullWidth
                             variant="outlined"
-                            value="MYSORE"
+                            value={user.location}
                             InputProps={{ readOnly: true }}
-                            sx={{ marginTop: "5px" }}
+                            sx={{
+                              marginTop: "5px",
+                              "& input": {
+                                textTransform: "capitalize",
+                              },
+                            }}
                           />
                         </Grid>
                         <Grid item xs={12} sm={6} md={4}>
@@ -267,6 +300,7 @@ const SubmitTicket = () => {
                             name="contactNumber"
                             variant="outlined"
                             placeholder="Contact No"
+                            value={user.contact}
                             required
                             sx={{
                               marginTop: "5px",
@@ -369,9 +403,16 @@ const SubmitTicket = () => {
                             <MenuItem value="" disabled>
                               --Select--
                             </MenuItem>
-                            <MenuItem value="Issue">Issue</MenuItem>
-                            <MenuItem value="Request">Request</MenuItem>
-                            <MenuItem value="Other">Other</MenuItem>
+                            <MenuItem value="Administration Department">
+                              Administration Department
+                            </MenuItem>
+                            <MenuItem value="DevOps/Release Engineering">
+                              DevOps/Release Engineering
+                            </MenuItem>
+                            <MenuItem value="Human Resource">
+                              Human Resource
+                            </MenuItem>
+                            <MenuItem value="IT Systems">IT Systems</MenuItem>
                           </Field>
                           {touched.type && errors.type && (
                             <Typography variant="caption" color="error">
