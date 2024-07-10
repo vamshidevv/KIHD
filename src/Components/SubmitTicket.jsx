@@ -12,7 +12,7 @@ import {
   Alert,
 } from "@mui/material";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup"; 
+import * as Yup from "yup";
 import withResponsiveDrawer from "./withResponsiveDrawer";
 import { styled } from "@mui/system";
 import InfoIcon from "@mui/icons-material/Info";
@@ -82,6 +82,428 @@ const TicketDetailsTextField = styled(TextField)({
 const SubmitTicket = () => {
   const [user, setUser] = useState({});
   console.log("userState", user);
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSubcategory, setSelectedSubcategory] = useState("");
+
+  const typeOptions = [
+    "Administration Department",
+    "DevOps/Release Engineering",
+    "Human Resource",
+    "IT Systems",
+  ];
+  const categoryOptions = {
+    "Administration Department": [
+      "Access Control",
+      "Canteen",
+      "Guest House Request",
+      "HouseKeeping",
+      "IT Spares",
+      "Maintenance",
+      "Onboarding/Offboarding",
+      "PF",
+      "Stationary",
+      "System Movement",
+      "Transport",
+      "Visitors Management",
+    ],
+
+    "DevOps/Release Engineering": [
+      "Application and DB Deployment",
+      "Application Deployment",
+      "DB Deployment",
+      "Git",
+      "Infra",
+      "Jenkins",
+      "Site24×7",
+      "SonarQube",
+      "Support/Maintanance",
+      "TFS",
+    ],
+
+    "Human Resource": [
+      "ID Card",
+      "Insurance",
+      "Letter Request",
+      "Others",
+      "Recruitment",
+      "Salary",
+      "Zoho",
+    ],
+
+    "IT Systems": [
+      "Access Review",
+      "AD Account",
+      "Antivirus",
+      "Backup/Restore",
+      "Change Management",
+      "DNS",
+      "Email",
+      "Google/Zoho Drive",
+      "Hardware",
+      "Internet",
+      "Joinee/Exit Process",
+      "Log Review",
+      "Network",
+      "SFTP/https",
+      "Software",
+      "SVN",
+      "USB/Admin Access",
+      "Virtual Machines",
+      "VPN",
+    ],
+  };
+  const subcategoryOptions = {
+    // Administration department starts from here
+
+    "Access Control": ["Biometric"],
+    "Canteen": ["Cleanliness", "Feedback"],
+    "Guest House Request": ["Guest House Request"],
+    "HouseKeeping": ["Rest rooms, Workplace Cleaning"],
+    "IT Spares": [
+      "Desktop",
+      "Desktop Monitor",
+      "Dongle",
+      "HDD",
+      "KeyBoard",
+      "Laptop",
+      "Mouse",
+      "Network Patch cable",
+      "Others",
+      "RAM",
+      "SSD",
+    ],
+    "Maintenance": [
+      "Chair",
+      "Lift",
+      "Light,Fan/AC not working",
+      "Others",
+      "Power Problem",
+      "Telephone issues",
+      "Water dispenser",
+      "Water leakage/seepage",
+      "Windows not working",
+    ],
+    "Onboarding/Offboarding": ["Onboarding/Offboarding"],
+    "PF": ["Transfer", "Withdrawal"],
+    "Stationary": ["Marker,Duster", "Pen Notepad"],
+    "System Movement": ["System Movement"],
+    "Transport": ["Transport"],
+    "Visitors Management": ["Security", "Vehicles Parking", "Visitors"],
+
+    //  Administration ends here
+
+    // DevOps starts from here.
+
+    "Application and DB Deployment": [
+      "DB patch update - Internal ",
+      "DB patch update - Preprod",
+      "DB patch update - Production",
+      "DB patch update - Staging",
+      "DB patch update - UAT",
+      "Full DB  update - Internal",
+      "Full DB  update - Preprod",
+      "Full DB  update - Production",
+      "Full DB  update - Staging",
+      "Full DB  update - UAT",
+      "Full Deployment - Internal",
+      "Full Deployment - Preprod",
+      "Full Deployment - Production",
+      "Full Deployment - Staging",
+      "Full Deployment - UAT",
+      "New Environment Setup",
+      "Others",
+      "Patch Deployment - Internal",
+      "Patch Deployment - Preprod",
+      "Patch Deployment - Production",
+      "Patch Deployment - Staging",
+      "Patch Deployment - UAT",
+      "Server Turn off",
+      "Server Turn on",
+    ],
+    "Application Deployment": [
+      "Full Deployment - Preprod",
+      "Full Deployment - Production",
+      "Full Deployment - Staging",
+      "Full Deployment - UAT",
+      "New Environment Setup",
+      "Others",
+      "Patch Deployment - Internal",
+      "Patch Deployment - Preprod",
+      "Patch Deployment - Production",
+      "Patch Deployment - Staging",
+      "Patch Deployment - UAT",
+      "Server Turn off",
+      "Server Turn on",
+    ],
+
+    "DB Deployment": [
+      "DB patch update - Internal ",
+      "DB patch update - Preprod",
+      "DB patch update - Production",
+      "DB patch update - Staging",
+      "DB patch update - UAT",
+      "Full DB  update - Internal",
+      "Full DB  update - Preprod",
+      "Full DB  update - Production",
+      "Full DB  update - Staging",
+      "Full DB  update - UAT",
+      "New Environment Setup",
+      "Others",
+      "Server Turn off",
+      "Server Turn on",
+    ],
+
+    "Git": [
+      "Access for new user",
+      "Access Removal",
+      "Creating/deleting new repo",
+      "New Branch Creation",
+      "Others",
+      "Support",
+    ],
+
+    "Infra": [
+      "Additional Storage Request",
+      "ASG (Auto Scaling Group)",
+      "Billing and Cost Management",
+      "New Server Creation request",
+      "Others",
+      "Raise AWS/Azure ticket",
+      "Server Downgrade Request",
+      "Server Image backup",
+      "Server Migration Request",
+      "Server turn off",
+      "Server turn on",
+      "Server Upgrade Request",
+    ],
+
+    "Jenkins": ["job Execution", "New Jenkins job Creation", "Others"],
+    "Site24×7": [
+      "Add monitor",
+      "Alert Configuration",
+      "Clone monitor",
+      "Delete monitor",
+      "Log configuration",
+      "Report preparation",
+    ],
+
+    "SonarQube": ["Job Execution", "New SonarQube job Creation", "Others"],
+    "Support/Maintanance": [
+      "Antivirus",
+      "Applicaion backup request",
+      "Application Support",
+      "AppPoll Recycle",
+      "Certficate Installation",
+      "DB Access request",
+      "DB backup request",
+      "Db support",
+      "Developer support",
+      "Documentation",
+      "Issue Investigation",
+      "Logs Fetch",
+      "Others",
+      "Security best practices",
+      "Security patch update",
+      "Server Access Request",
+      "Space Clean up /additional space request",
+      "Vulnerabilities Fix",
+      "Weak Ciphers Disable",
+    ],
+
+    "TFS": [
+      "Access for new user",
+      "Access Reconciliation",
+      "Access Removal",
+      "File Unlock Request",
+      "Merge Request",
+      "New Branch Creation",
+      "New Project Creation",
+      "Others",
+      "Work Item Customization(Bugs/Task/Story.etc)",
+    ],
+
+    // DevOps Ends  here
+
+    // Human Resource starts here
+    "ID Card": ["Permanent ID card request"],
+    "Insurence": [
+      "ESI Card changes",
+      "ESI card requirement",
+      "GHIS Renewal/Claim",
+    ],
+    "Letter Request": [
+      "Address Proof Letter",
+      "Designation Letter",
+      "Visa Covering Letter",
+    ],
+    "Others": ["General Queries"],
+    "Recruitment": ["Current Openings", "Employee Referal"],
+    "Salary": ["Pay roll deductions/Distribution of pay roll"],
+    // Human Resource ends here
+
+    // IT System starts here
+    "Access Review": [
+      "Admin Rights",
+      "Firewall and VPN Box Privilage Access",
+      "Firewall Rules",
+      "HTTPS Accounts",
+      "Others",
+      "SFTP Accounts",
+      "SVN Access",
+      "USB Access",
+      "VPN Accounts",
+      "Zoho Remote Tool",
+    ],
+    "AD Account": [
+      "Change/Modify account",
+      "Change/Modify Group Policy",
+      "Create Account for customer",
+      "create new privilage account",
+      "create new AD account",
+      "Customer account password reset",
+      "Delete/Disable Account",
+      "New Group Policy",
+      "Others",
+      "Password Reset",
+      "set account expiry date",
+    ],
+    "AnitiVirus": [
+      "allow/file/applicaitons",
+      "av defination update",
+      "av install/reinstall",
+      "creating new policy",
+    ],
+    "Backup/Restore": [
+      "GIT/backup restore",
+      "jenkins/backup restore",
+      "SVN/backup restore",
+      "TFS/backup restore",
+      "Timesheet/backup restore",
+    ],
+    "Change Management": [
+      "Emergency change",
+      "Normal change",
+      "Standard change",
+    ],
+
+    "DNS": ["Delete DNS Record", "Modify DNS Record", "New DNS Record", "Others"],
+    "Email": [
+      "Change/modify DL membership",
+      "Configure mailbox",
+      "create new DL",
+      "create new email id",
+      "delete email id/Dl",
+      "email not delivered",
+      "not able to send/recieve mail",
+      "not recieve the mail from customer",
+      "others",
+      "outlook not connecting",
+      "password reset",
+      "release quarantined email",
+      "whitelisting email ID/domain",
+    ],
+    "Google/Zoho Drive": [
+      "downgrade license",
+      "others",
+      "recover deleted file",
+      "request storage access",
+    ],
+    "Hardware": [
+      "Audio isuue",
+      "change for desktop request",
+      "change for laptop request",
+      "change/upgrade hardware",
+      "Desktop allocation",
+      "HDD/SSD issue",
+      "keyboard/mouse issue",
+      "laptop allocation",
+      "monitor display issue",
+      "motherboard issue",
+      "others",
+      "RAM issue",
+      "SMPS/power issue",
+    ],
+
+    "Internet": [
+      "enable ES hosted site from public network",
+      "internet speed issue",
+      "others",
+      "special internet access",
+      "unable to access internet site",
+      "unable to download customer input",
+      "whitelisting URL/path",
+    ],
+    "Joinee/Exit Process": [
+      "domain and email id creation",
+      "domain and email id deletion",
+      "new joiners system allocation",
+      "others",
+    ],
+    "Log Review": ["forewall logs", "server logs", "VPN logs"],
+    "Network": [
+      "enable MAC id",
+      "ip address not getting",
+      "LAN/Wifi not connected",
+      "others",
+      "Required LAN/Wifi",
+    ],
+    "SFTP/https": [
+      "create new SFTP/https account creation",
+      "others",
+      "renew",
+      "SFTP/https account",
+      "SFTP https account passoword reset",
+    ],
+
+    "Software": [
+      "Drivers Installation",
+      "Freeware Installation",
+      "License renewal",
+      "New License/Service",
+      "O365/M365 Installation",
+      "OS Upgradation",
+      "Others",
+      "Software Installation",
+      "Software Upgradation",
+      "SQL Server Insatallation",
+      "System Booting Issue",
+      "Visual Studio Installation",
+    ],
+
+    "SVN": [
+      "Login Issue",
+      "New account request",
+      "Others",
+      "SVN Backup/Restore",
+      "SVN URL not accessible",
+    ],
+    "USB/Admin Access": [
+      "Admin Rights Request",
+      "Renewal of Admin Rights",
+      "Renewal of USB Access",
+      "USB Access Request",
+    ],
+    "Virtual Machines": [
+      "Cloud VM Backup",
+      "Create Cloud VM",
+      "Create Local VM",
+      "Delete VM",
+      "Enable Network and Ports",
+      "Others",
+      "Resizing of VM",
+    ],
+    "VPN": [
+      "Create New VPN Account",
+      "Enable Customer VPN Access",
+      "Others",
+      "Renew Customer VPN Access",
+      "Renew VPN Account",
+      "VPN Connectivity Issue",
+    ],
+
+    // IT System ends here
+  };
 
   useEffect(() => {
     const getUser = localStorage.getItem("foundUser");
@@ -146,6 +568,8 @@ const SubmitTicket = () => {
             {({ handleChange, setFieldValue, values, errors, touched }) => (
               <Form>
                 <Grid container spacing={8}>
+                  {/* ========================= Personal Details Form ============================ */}
+
                   <Grid item xs={12}>
                     <Box
                       sx={{
@@ -156,7 +580,7 @@ const SubmitTicket = () => {
                       borderColor="gray"
                       borderRadius="4px"
                       padding={3}
-                      >
+                    >
                       <legend
                         style={{
                           padding: "0 10px",
@@ -365,7 +789,9 @@ const SubmitTicket = () => {
                             name="type"
                             variant="outlined"
                             onChange={(event) => {
-                              handleChange(event);
+                              setSelectedType(event.target.value);
+                              setSelectedCategory("");
+                              setSelectedSubcategory("");
                               setFieldValue("type", event.target.value);
                             }}
                             SelectProps={{
@@ -400,19 +826,11 @@ const SubmitTicket = () => {
                               },
                             }}
                           >
-                            <MenuItem value="" disabled>
-                              --Select--
-                            </MenuItem>
-                            <MenuItem value="Administration Department">
-                              Administration Department
-                            </MenuItem>
-                            <MenuItem value="DevOps/Release Engineering">
-                              DevOps/Release Engineering
-                            </MenuItem>
-                            <MenuItem value="Human Resource">
-                              Human Resource
-                            </MenuItem>
-                            <MenuItem value="IT Systems">IT Systems</MenuItem>
+                            {typeOptions.map((option) => (
+                              <MenuItem key={option} value={option}>
+                                {option}
+                              </MenuItem>
+                            ))}
                           </Field>
                           {touched.type && errors.type && (
                             <Typography variant="caption" color="error">
@@ -433,8 +851,10 @@ const SubmitTicket = () => {
                             fullWidth
                             name="category"
                             variant="outlined"
+                            
                             onChange={(event) => {
-                              handleChange(event);
+                              setSelectedCategory(event.target.value);
+                              setSelectedSubcategory("");
                               setFieldValue("category", event.target.value);
                             }}
                             SelectProps={{
@@ -469,12 +889,12 @@ const SubmitTicket = () => {
                               },
                             }}
                           >
-                            <MenuItem value="" disabled>
-                              --Select--
-                            </MenuItem>
-                            <MenuItem value="Software">Software</MenuItem>
-                            <MenuItem value="Hardware">Hardware</MenuItem>
-                            <MenuItem value="Network">Network</MenuItem>
+                            {selectedType &&
+                              categoryOptions[selectedType].map((option) => (
+                                <MenuItem key={option} value={option}>
+                                  {option}
+                                </MenuItem>
+                              ))}
                           </Field>
                           {touched.category && errors.category && (
                             <Typography variant="caption" color="error">
@@ -493,7 +913,7 @@ const SubmitTicket = () => {
                             name="subcategory"
                             variant="outlined"
                             onChange={(event) => {
-                              handleChange(event);
+                              setSelectedSubcategory(event.target.value);
                               setFieldValue("subcategory", event.target.value);
                             }}
                             SelectProps={{
@@ -530,14 +950,14 @@ const SubmitTicket = () => {
                               },
                             }}
                           >
-                            <MenuItem value="" disabled="true">
-                              --Select--
-                            </MenuItem>
-                            <MenuItem value="Application">Application</MenuItem>
-                            <MenuItem value="System">System</MenuItem>
-                            <MenuItem value="Infrastructure">
-                              Infrastructure
-                            </MenuItem>
+                            {selectedCategory &&
+                              subcategoryOptions[selectedCategory].map(
+                                (option) => (
+                                  <MenuItem key={option} value={option}>
+                                    {option}
+                                  </MenuItem>
+                                )
+                              )}
                           </Field>
                           {touched.subcategory && errors.subcategory && (
                             <Typography variant="caption" color="error">
