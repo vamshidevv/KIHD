@@ -8,7 +8,7 @@
       "designation": "front end developer",
       "department": "react",
       "location": "Surat",
-      "contact":"9856321474",
+      "contact": "9856321474",
       "password": "123456"
     },
     {
@@ -19,31 +19,29 @@
       "designation": "back end developer",
       "department": "node",
       "location": "mumbai",
-      "contact":"8856324215",
+      "contact": "8856324215",
       "password": "789456"
     },
     {
       "id": 3,
-
       "username": "kevinryan",
       "empolyeecode": "0009000030",
       "email": "kevin@gmail.com",
       "designation": "fullstack developer",
       "department": "IT",
       "location": "mumbai",
-      "contact":"7849653215",
+      "contact": "7849653215",
       "password": "kev02937@"
     },
     {
       "id": 4,
-
       "username": "donero",
       "empolyeecode": "0009000044",
       "email": "don@gmail.com",
       "designation": "UiUx",
       "department": "designing",
       "location": "surat",
-      "contact":"6359821474",
+      "contact": "6359821474",
       "password": "ewedon"
     },
     {
@@ -54,32 +52,54 @@
       "designation": "data analyst",
       "department": "management",
       "location": "mumbai",
-      "contact":"9562147836",
+      "contact": "9562147836",
       "password": "jklg*_56"
     },
     {
       "id": 6,
-
       "username": "david r",
       "empolyeecode": "0009000043",
       "email": "david.r@gmail.com",
       "designation": "front end developer",
       "department": "Angular",
       "location": "pune",
-      "contact":"8856471123",
+      "contact": "8856471123",
       "password": "3478*#54"
     },
     {
       "id": 7,
-
       "username": "kendrick lamar",
       "empolyeecode": "0009000043",
       "email": "kendric_l@gmail.com",
       "designation": "back end developer",
       "department": "python",
       "location": "pune",
-      "contact":"6652478899",
+      "contact": "6652478899",
       "password": "456123"
+    }
+  ],
+  "ticketdetails": [
+    {
+      "id": "c8c1",
+      "type": "Administration Department",
+      "projectTitle": "",
+      "category": "Onboarding/Offboarding",
+      "subcategory": "Onboarding/Offboarding",
+      "subject": "light is not working",
+      "description": "hey",
+      "priority": "Medium",
+      "attachment": ""
+    },
+    {
+      "id": "9099",
+      "type": "Human Resource",
+      "projectTitle": "",
+      "category": "Letter Request",
+      "subcategory": "Address Proof Letter",
+      "subject": "Address proof ",
+      "description": "Address proof is not working ",
+      "priority": "Medium",
+      "attachment": ""
     }
   ]
 }
