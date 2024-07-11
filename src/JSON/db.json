@@ -1,7 +1,7 @@
 {
   "user": [
     {
-      "id": 1,
+      "id": "1",
       "username": "vamshi",
       "empolyeecode": "0009000069",
       "email": "vamshi@gmail.com",
@@ -12,7 +12,7 @@
       "password": "123456"
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "shivam",
       "empolyeecode": "0009000026",
       "email": "shivam@gmail.com",
@@ -23,7 +23,7 @@
       "password": "789456"
     },
     {
-      "id": 3,
+      "id": "3",
       "username": "kevinryan",
       "empolyeecode": "0009000030",
       "email": "kevin@gmail.com",
@@ -34,7 +34,7 @@
       "password": "kev02937@"
     },
     {
-      "id": 4,
+      "id": "4",
       "username": "donero",
       "empolyeecode": "0009000044",
       "email": "don@gmail.com",
@@ -45,7 +45,7 @@
       "password": "ewedon"
     },
     {
-      "id": 5,
+      "id": "5",
       "username": "derek",
       "empolyeecode": "0009000056",
       "email": "derek@gmail.com",
@@ -56,7 +56,7 @@
       "password": "jklg*_56"
     },
     {
-      "id": 6,
+      "id": "6",
       "username": "david r",
       "empolyeecode": "0009000043",
       "email": "david.r@gmail.com",
@@ -67,7 +67,7 @@
       "password": "3478*#54"
     },
     {
-      "id": 7,
+      "id": "7",
       "username": "kendrick lamar",
       "empolyeecode": "0009000043",
       "email": "kendric_l@gmail.com",
@@ -80,26 +80,147 @@
   ],
   "ticketdetails": [
     {
-      "id": "c8c1",
+      "id": "b4b9",
       "type": "Administration Department",
       "projectTitle": "",
-      "category": "Onboarding/Offboarding",
-      "subcategory": "Onboarding/Offboarding",
-      "subject": "light is not working",
-      "description": "hey",
+      "category": "Guest House Request",
+      "subcategory": "Guest House Request",
+      "subject": "guest house request",
+      "description": "guest house request ",
       "priority": "Medium",
-      "attachment": ""
+      "attachment": "blur.webp",
+      "RequestedDate": "Jul 11, 2024, 02:59 PM",
+      "status": "open"
     },
     {
-      "id": "9099",
+      "id": "67ae",
+      "type": "DevOps/Release Engineering",
+      "projectTitle": "Pearson_SMS Delevarage_2024",
+      "category": "Application Deployment",
+      "subcategory": "Full Deployment - Preprod",
+      "subject": "deployement ",
+      "description": "depluement is not done yet",
+      "priority": "Medium",
+      "attachment": "",
+      "RequestedDate": "Jul 11, 2024, 02:59 PM",
+      "status": "closed"
+    },
+    {
+      "id": "d760",
+      "type": "Administration Department",
+      "projectTitle": "",
+      "category": "Guest House Request",
+      "subcategory": "Guest House Request",
+      "subject": "guest house request",
+      "description": "guest house request ",
+      "priority": "Medium",
+      "attachment": "",
+      "RequestedDate": "Jul 11, 2024, 04:00 PM",
+      "status": "open"
+    },
+    {
+      "id": "8590",
+      "type": "DevOps/Release Engineering",
+      "projectTitle": "Pearson_SMS Delevarage_2024",
+      "category": "Support/Maintanance",
+      "subcategory": "Logs Fetch",
+      "subject": "logs fetch",
+      "description": "logs are not fetching correctly ",
+      "priority": "High",
+      "attachment": "",
+      "RequestedDate": "Jul 11, 2024, 04:01 PM",
+      "status": "closed"
+    },
+    {
+      "id": "c4e1",
       "type": "Human Resource",
       "projectTitle": "",
       "category": "Letter Request",
-      "subcategory": "Address Proof Letter",
-      "subject": "Address proof ",
-      "description": "Address proof is not working ",
+      "subcategory": "Visa Covering Letter",
+      "subject": "light is not working",
+      "description": "visa covering letter ",
+      "priority": "High",
+      "attachment": "",
+      "RequestedDate": "Jul 11, 2024, 04:05 PM",
+      "status": "open"
+    },
+    {
+      "id": "43c3",
+      "type": "Human Resource",
+      "projectTitle": "",
+      "category": "Salary",
+      "subcategory": "Pay roll deductions/Distribution of pay roll",
+      "subject": "pay roll deductions ",
+      "description": "hey this side is vamshi\nthe payroll is deducted want to know why ",
       "priority": "Medium",
-      "attachment": ""
+      "attachment": "",
+      "RequestedDate": "Jul 11, 2024, 04:08 PM",
+      "status": "open"
+    },
+    {
+      "id": "7507",
+      "type": "DevOps/Release Engineering",
+      "projectTitle": "Pearson_SMS Delevarage_2024",
+      "category": "DB Deployment",
+      "subcategory": "Full DB  update - Internal",
+      "subject": "guest house request",
+      "description": "guest house ",
+      "priority": "Medium",
+      "attachment": "",
+      "RequestedDate": "Jul 11, 2024, 04:11 PM",
+      "status": "open"
+    },
+    {
+      "id": "2a59",
+      "type": "Administration Department",
+      "projectTitle": "",
+      "category": "Stationary",
+      "subcategory": "Marker,Duster",
+      "subject": "marker duster",
+      "description": "marker duster",
+      "priority": "High",
+      "attachment": "",
+      "RequestedDate": "Jul 11, 2024, 04:15 PM",
+      "status": "open"
+    },
+    {
+      "id": "1aff",
+      "type": "Human Resource",
+      "projectTitle": "",
+      "category": "Insurance",
+      "subcategory": "ESI card requirement",
+      "subject": "ESI card reuirement ",
+      "description": "hello \nthe ESI card is ready or not id not \nthen make it ready ",
+      "priority": "High",
+      "attachment": "",
+      "RequestedDate": "Jul 11, 2024, 04:27 PM",
+      "status": "open"
+    },
+    {
+      "id": "73fe",
+      "type": "IT Systems",
+      "projectTitle": "",
+      "category": "Network",
+      "subcategory": "ip address not getting",
+      "subject": "ip address not getting ",
+      "description": "hey the ip address not getting problem not solve yet so what will we do \n",
+      "priority": "Medium",
+      "attachment": "",
+      "RequestedDate": "Jul 11, 2024, 04:29 PM",
+      "status": "open"
+    },
+    {
+      "id": "8a32",
+      "type": "IT Systems",
+      "projectTitle": "",
+      "category": "AD Account",
+      "subcategory": "Change/Modify account",
+      "subject": "change modify account ",
+      "description": "the account needs be changed so make it change\nASAP ",
+      "priority": "Medium",
+      "attachment": "",
+      "RequestedDate": "Jul 11, 2024, 04:31 PM",
+      "status": "open"
     }
   ]
 }

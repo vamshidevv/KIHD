@@ -17,6 +17,8 @@ import {
   Button,
 } from "@mui/material";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialValues = {
   type: "",
@@ -29,21 +31,6 @@ const initialValues = {
   attachment: "",
 };
 
-const validationSchema = Yup.object().shape({
-  type: Yup.string().required("Type is required"),
-  //   projectTitle: Yup.string().when("type", {
-  //     is: "DevOps/Release Engineering",
-  //     then: Yup.string().required(
-  //       "Project Title is required for DevOps/Release Engineering"
-  //     ),
-  //     otherwise: Yup.string(),
-  //   }),
-  category: Yup.string().required("Category is required"),
-  subcategory: Yup.string().required("Subcategory is required"),
-  subject: Yup.string().required("Subject is required"),
-  description: Yup.string().required("Description is required"),
-  priority: Yup.string().required("Priority is required"),
-});
 const TicketDetailsTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
@@ -66,12 +53,25 @@ const TicketDetailsTextField = styled(TextField)({
 
 const TicketDetails = () => {
   const [isProjectTitle, setIsProjectTitle] = useState(false);
+  const [isDevOps, setIsDevOps] = useState(false);
+  const [showProjectTitleError, setShowProjectTitleError] = useState(false);
+  const [projectTitleTouched, setProjectTitleTouched] = useState(false);
+
   const [user, setUser] = useState({});
   const [isCategory, setIsCategory] = useState(true);
   const [isSubCategory, setIsSubCategory] = useState(true);
   const [selectedType, setSelectedType] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
+
+  const validationSchema = Yup.object().shape({
+    type: Yup.string().required("Type is required"),
+    category: Yup.string().required("Category is required"),
+    subcategory: Yup.string().required("Subcategory is required"),
+    subject: Yup.string().required("Subject is required"),
+    description: Yup.string().required("Description is required"),
+    priority: Yup.string().required("Priority is required"),
+  });
 
   const typeOptions = [
     "Administration Department",
@@ -316,7 +316,7 @@ const TicketDetails = () => {
 
     // Human Resource starts here
     "ID Card": ["Permanent ID card request"],
-    Insurence: [
+    Insurance: [
       "ESI Card changes",
       "ESI card requirement",
       "GHIS Renewal/Claim",
@@ -329,6 +329,15 @@ const TicketDetails = () => {
     Others: ["General Queries"],
     Recruitment: ["Current Openings", "Employee Referal"],
     Salary: ["Pay roll deductions/Distribution of pay roll"],
+    Zoho: [
+      "Compensatory off",
+      "Leave carry forward/Calculation",
+      "Leave policy(Marital/Maternity)",
+      "Performance Appraisal",
+      "Phone Number/E Mail ID/Address/Marital Status",
+      "Regularisation",
+      "Reporting Department",
+    ],
     // Human Resource ends here
 
     // IT System starts here
@@ -501,22 +510,67 @@ const TicketDetails = () => {
 
   const [fileSizeError, setFileSizeError] = useState(false);
 
-  const handleSubmit = (values, { resetForm }) => {
-    console.log("Form data", values);
+  const handleSubmit = (values, { resetForm, setSubmitting }) => {
+    setSubmitting(true);
+    // Custom validation for projectTitle
+
+    const formatDateTime = (date) => {
+      const options = {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      };
+      return new Intl.DateTimeFormat("en-US", options).format(date);
+    };
+
+    // Get current date and time
+    const RequestedDate = formatDateTime(new Date());
+
+    const status = Math.random() < 0.5 ? "closed" : "open";
+
+    const formData = {
+      ...values,
+      RequestedDate,
+      status,
+    };
+
+    console.log("Form data", formData);
 
     axios
-      .post("http://localhost:3000/ticketdetails", values)
+      .post("http://localhost:3000/ticketdetails", formData)
       .then((response) => {
         console.log("Response:", response);
-        alert("Ticket submitted successfully");
+        // alert("Ticket submitted successfully");
+        toast.success("Ticket submitted successfully", {
+          position: "top-center",
+          autoClose: 5000,
+          // hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "light",
+        });
         resetForm();
+        setShowProjectTitleError(false);
       })
       .catch((error) => {
         console.error("Error submitting ticket:", error);
-        alert("Failed to submit ticket");
+        // alert("Failed to submit ticket");
+        toast.error("Failed to submit ticket", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       });
   };
-
   return (
     <>
       <Formik
@@ -578,6 +632,8 @@ const TicketDetails = () => {
                           setIsProjectTitle(true);
                         } else {
                           setIsProjectTitle(false);
+                          setFieldValue("projectTitle", ""); // Clear project title if type changes
+                          setShowProjectTitleError(false);
                         }
                       }}
                       SelectProps={{
@@ -645,6 +701,7 @@ const TicketDetails = () => {
                       variant="outlined"
                       onChange={(event) => {
                         setFieldValue("projectTitle", event.target.value);
+                        setShowProjectTitleError(false);
                       }}
                       SelectProps={{
                         displayEmpty: true,
@@ -684,9 +741,9 @@ const TicketDetails = () => {
                         </MenuItem>
                       ))}
                     </Field>
-                    {touched.projectTitle && errors.projectTitle && (
+                    {showProjectTitleError && (
                       <Typography variant="caption" color="error">
-                        {errors.projectTitle}
+                        Please select a project title.
                       </Typography>
                     )}
                   </Grid>

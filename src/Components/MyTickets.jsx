@@ -12,14 +12,15 @@ import {
   Select,
   MenuItem,
   Button,
+  Typography,
+  Grid,
+  FormControl,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import FormControl from "@mui/material/FormControl";
 import withResponsiveDrawer from "./withResponsiveDrawer";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const columns = [
   { id: "ticketId", label: "Ticket ID", minWidth: 100 },
@@ -31,89 +32,12 @@ const columns = [
   { id: "action", label: "Action", minWidth: 100 },
 ];
 
-const rows = [
-  {
-    ticketId: "131608",
-    requestedDate: "19-Jun-2024 09:59 AM",
-    category: "USB/Admin Access",
-    subcategory: "Renewal of Admin Rights",
-    subject: "Request for New Admin Access Password",
-    status: "Closed",
-  },
-  {
-    ticketId: "130972",
-    requestedDate: "12-Jun-2024 09:32 AM",
-    category: "AD Account",
-    subcategory: "Password Reset",
-    subject: "Reset or Unlock the account",
-    status: "Closed",
-  },
-  {
-    ticketId: "126359",
-    requestedDate: "30-Apr-2024 10:10 AM",
-    category: "AD Account",
-    subcategory: "Password Reset",
-    subject: "Reset or Unlock the account",
-    status: "Closed",
-  },
-  {
-    ticketId: "124862",
-    requestedDate: "16-Apr-2024 10:00 AM",
-    category: "Access Review",
-    subcategory: "Admin Rights",
-    subject: "Request for New Admin Access Password",
-    status: "Closed",
-  },
-  {
-    ticketId: "121737",
-    requestedDate: "18-Mar-2024 03:24 PM",
-    category: "AD Account",
-    subcategory: "Password Reset",
-    subject: "Reset or Unlock the account",
-    status: "Closed",
-  },
-  {
-    ticketId: "119701",
-    requestedDate: "28-Feb-2024 05:19 PM",
-    category: "VPN",
-    subcategory: "Create New VPN Account",
-    subject: "Request for VPN Access Assistance",
-    status: "Closed",
-  },
-  {
-    ticketId: "119611",
-    requestedDate: "28-Feb-2024 10:21 AM",
-    category: "VPN",
-    subcategory: "Create New VPN Account",
-    subject: "Request for Tactine VPN Installation and Access",
-    status: "Closed",
-  },
-  {
-    ticketId: "119576",
-    requestedDate: "27-Feb-2024 06:10 PM",
-    category: "USB/Admin Access",
-    subcategory: "Admin Rights Request",
-    subject: "Request for Admin Access Control",
-    status: "Closed",
-  },
-  {
-    ticketId: "119548",
-    requestedDate: "27-Feb-2024 04:10 PM",
-    category: "Access Control",
-    subcategory: "Biometric",
-    subject: "Request for Admin Access Control",
-    status: "Closed",
-  },
-  // Add more rows as needed
-];
-
-// Responsive width based on screen size
-
 const MyTickets = () => {
   const navigate = useNavigate();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [status, setStatus] = React.useState("All");
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [status, setStatus] = useState("All");
+  const [ticketData, setTicketData] = useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -127,10 +51,24 @@ const MyTickets = () => {
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
   };
+
   const handleViewDetails = () => {
     sessionStorage.setItem("canNavigate", "true");
     navigate("/viewticketdetails");
   };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/ticketdetails")
+      .then((response) => {
+        setTicketData(response.data);
+        console.log("get ticket data:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error getting ticket data:", error);
+      });
+  }, []);
+
   return (
     <Box
       sx={{
@@ -145,7 +83,9 @@ const MyTickets = () => {
       <Box sx={{ padding: 2, backgroundColor: "#ffffff" }}>
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>
-            <Typography variant="h6">My Tickets (9)</Typography>
+            <Typography variant="h6">
+              My Tickets ({ticketData.length})
+            </Typography>
           </Grid>
           <Grid item>
             <Button
@@ -183,7 +123,7 @@ const MyTickets = () => {
               >
                 <MenuItem value="All">All</MenuItem>
                 <MenuItem value="Closed">Closed</MenuItem>
-                {/* <MenuItem value="Closed">Open</MenuItem> */}
+                {/* <MenuItem value="Open">Open</MenuItem> */}
               </Select>
             </FormControl>
           </Grid>
@@ -220,9 +160,9 @@ const MyTickets = () => {
                     fontWeight: "600",
                   }}
                 >
-                  9
+                  {ticketData.length}
                 </span>{" "}
-                / 9)
+                / {ticketData.length})
               </Typography>
             </Grid>
           </Grid>
@@ -245,7 +185,6 @@ const MyTickets = () => {
                         letterSpacing: "0.5px",
                       }}
                     >
-                      {" "}
                       {column.label}
                     </p>
                   </TableCell>
@@ -253,7 +192,7 @@ const MyTickets = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
+              {ticketData
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <TableRow
@@ -304,7 +243,7 @@ const MyTickets = () => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={ticketData.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
