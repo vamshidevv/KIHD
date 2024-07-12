@@ -20,9 +20,8 @@ import { useState, useEffect } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
-import { Blocks } from "react-loader-spinner";
 import Footer from "./Footer";
-import CloseIcon from "@mui/icons-material/Close";
+import { OrbitProgress } from "react-loading-indicators";
 
 const drawerWidth = 240;
 
@@ -31,7 +30,7 @@ function ResponsiveDrawer({ window, children }) {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(true); 
+  const [drawerOpen, setDrawerOpen] = useState(true);
   const [username, setUsername] = useState(localStorage.getItem("username"));
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
   const [activeSection, setActiveSection] = useState("Dashboard");
@@ -176,7 +175,7 @@ function ResponsiveDrawer({ window, children }) {
               disableGutters
               sx={{ paddingRight: { sm: "0px", lg: "30px" } }}
             >
-              {drawerOpen && ( // Conditional rendering based on drawerOpen state
+              {drawerOpen && (
                 <IconButton
                   color="inherit"
                   aria-label="close drawer"
@@ -185,10 +184,9 @@ function ResponsiveDrawer({ window, children }) {
                   sx={{ mr: 2, display: { sm: "block" } }}
                 >
                   <MenuIcon id="close-icon" />{" "}
-                  {/* Close icon when drawer is open */}
                 </IconButton>
               )}
-              {!drawerOpen && ( // Hamburger icon when drawer is closed
+              {!drawerOpen && (
                 <IconButton
                   color="inherit"
                   aria-label="open drawer"
@@ -311,7 +309,7 @@ function ResponsiveDrawer({ window, children }) {
             flexGrow: 1,
             minHeight: "100vh",
             backgroundColor: "#f6f6f6",
-            p:{xs:0,sm:0 , md:3, lg:3},
+            p: { xs: 0, sm: 0, md: 3, lg: 3 },
             width: { sm: `calc(100% - ${drawerOpen ? drawerWidth : 0}px)` },
             transition: "width 0.3s",
             overflow: "auto",
@@ -327,17 +325,10 @@ function ResponsiveDrawer({ window, children }) {
                 height: "85vh",
               }}
             >
-              <Blocks
-                height="60"
-                width="60"
-                color="#4fa94d"
-                ariaLabel="blocks-loading"
-                wrapperClass="blocks-wrapper"
-                visible={true}
-              />
+              <OrbitProgress color="#2e5c9e" size="small" />
             </div>
           ) : (
-            <div style={{ width: "100%", overflow: "auto" }}>{children}</div> // Ensure the children can overflow and scroll
+            <div style={{ width: "100%", overflow: "auto" }}>{children}</div>
           )}
         </Box>
       </Box>

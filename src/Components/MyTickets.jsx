@@ -61,7 +61,6 @@ const MyTickets = () => {
     axios
       .get("http://localhost:3000/ticketdetails")
       .then((response) => {
-        // Map the response data to include id and RequestedDate
         const mappedData = response.data.map((ticket) => ({
           ...ticket,
           ticketId: ticket.id,
@@ -129,7 +128,7 @@ const MyTickets = () => {
               >
                 <MenuItem value="All">All</MenuItem>
                 <MenuItem value="Closed">Closed</MenuItem>
-                {/* <MenuItem value="Open">Open</MenuItem> */}
+                <MenuItem value="Open">Open</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -166,7 +165,15 @@ const MyTickets = () => {
                     fontWeight: "600",
                   }}
                 >
-               9/9</span>
+                  {Math.max(
+                    0,
+                    Math.min(
+                      rowsPerPage,
+                      ticketData.length - page * rowsPerPage
+                    )
+                  )}
+                </span>{" "}
+                / {ticketData.length})
               </Typography>
             </Grid>
           </Grid>
@@ -202,7 +209,7 @@ const MyTickets = () => {
                   <TableRow
                     role="checkbox"
                     tabIndex={-1}
-                    key={row.ticketId} 
+                    key={row.ticketId}
                     sx={{ "&:hover": { backgroundColor: "#f2f2f266" } }}
                   >
                     {columns.map((column) => {
@@ -245,7 +252,7 @@ const MyTickets = () => {
         </TableContainer>
       </Box>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[10, 20, 25, 30, 50, 100]}
         component="div"
         count={ticketData.length}
         rowsPerPage={rowsPerPage}

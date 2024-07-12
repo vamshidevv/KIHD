@@ -560,11 +560,10 @@ const TicketDetails = () => {
       .post("http://localhost:3000/ticketdetails", formData)
       .then((response) => {
         console.log("Response:", response);
-        // alert("Ticket submitted successfully");
         toast.success("Ticket submitted successfully", {
           position: "top-center",
-          autoClose: 3000,
-          // hideProgressBar: false,
+          autoClose: false,
+          hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
@@ -575,10 +574,9 @@ const TicketDetails = () => {
       })
       .catch((error) => {
         console.error("Error submitting ticket:", error);
-        // alert("Failed to submit ticket");
         toast.error("Failed to submit ticket", {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: false,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -1183,11 +1181,8 @@ const TicketDetails = () => {
                             <br />- email notification will be sent to the email
                             ID's entered here when :
                             <br />{" "}
-                            <ul>
-                              <li style={{ listStyle: "disc" }}>
-                                {" "}
-                                - The ticket is submitted
-                              </li>
+                            <ul style={{ listStyle: "none" }}>
+                              <li> - The ticket is submitted</li>
                               <li>- The ticket is closed</li>
                             </ul>
                           </>

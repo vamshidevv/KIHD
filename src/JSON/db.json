@@ -176,6 +176,76 @@
       "sendemail": "",
       "RequestedDate": "Jul 12, 2024, 12:22 PM",
       "status": "open"
+    },
+    {
+      "id": "b8a6",
+      "type": "Administration Department",
+      "projectTitle": "",
+      "category": "IT Spares",
+      "subcategory": "SSD",
+      "subject": "SSD",
+      "description": "i hey this side krishna,\nin my cpu the ssd need to upgrade cause my project are \nnot work seamlessly so i hope it will be upadated soon",
+      "priority": "Medium",
+      "attachment": "",
+      "sendemail": "",
+      "RequestedDate": "Jul 12, 2024, 12:29 PM",
+      "status": "open"
+    },
+    {
+      "id": "16d2",
+      "type": "IT Systems",
+      "projectTitle": "",
+      "category": "Email",
+      "subcategory": "create new email id",
+      "subject": "request for create new email id",
+      "description": "hey the emp 05 email id is not created \nso create the email and let me know",
+      "priority": "Medium",
+      "attachment": "",
+      "sendemail": "",
+      "RequestedDate": "Jul 12, 2024, 02:33 PM",
+      "status": "closed"
+    },
+    {
+      "id": "5230",
+      "type": "Administration Department",
+      "projectTitle": "",
+      "category": "Maintenance",
+      "subcategory": "Light,Fan/AC not working",
+      "subject": "request to repair the ac ",
+      "description": "hey this side kendrick \nthe ac is not working proper it will not cool the room\ni already raise request regarding this so fix it ASAP",
+      "priority": "High",
+      "attachment": "",
+      "sendemail": "",
+      "RequestedDate": "Jul 12, 2024, 02:35 PM",
+      "status": "closed"
+    },
+    {
+      "id": "1f97",
+      "type": "Human Resource",
+      "projectTitle": "",
+      "category": "ID Card",
+      "subcategory": "Permanent ID card request",
+      "subject": "request for id card ",
+      "description": "Hey this side john\nthe want the permanent id card i submitted all the required details for it \nso make the permanent id card and let me know.",
+      "priority": "Medium",
+      "attachment": "",
+      "sendemail": "",
+      "RequestedDate": "Jul 12, 2024, 02:38 PM",
+      "status": "open"
+    },
+    {
+      "id": "8701",
+      "type": "IT Systems",
+      "projectTitle": "",
+      "category": "Internet",
+      "subcategory": "internet speed issue",
+      "subject": "request to solve the internet speed issue",
+      "description": "Hey its kendrick lamar\nthe interspeed is too slow after we upgraded the new plan \nso make sure it will resolve or change the plan or call the care \nregarding this issue it will be resolved soon ",
+      "priority": "Medium",
+      "attachment": "",
+      "sendemail": "",
+      "RequestedDate": "Jul 12, 2024, 04:22 PM",
+      "status": "open"
     }
   ]
 }
