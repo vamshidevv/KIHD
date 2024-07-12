@@ -19,6 +19,7 @@ import {
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { validationSchema } from "./validationSchema";
 
 const initialValues = {
   type: "",
@@ -29,6 +30,7 @@ const initialValues = {
   description: "",
   priority: "",
   attachment: "",
+  sendemail: "",
 };
 
 const TicketDetailsTextField = styled(TextField)({
@@ -64,14 +66,26 @@ const TicketDetails = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
 
-  const validationSchema = Yup.object().shape({
-    type: Yup.string().required("Type is required"),
-    category: Yup.string().required("Category is required"),
-    subcategory: Yup.string().required("Subcategory is required"),
-    subject: Yup.string().required("Subject is required"),
-    description: Yup.string().required("Description is required"),
-    priority: Yup.string().required("Priority is required"),
-  });
+  // const validationSchema = Yup.object().shape({
+  //   type: Yup.string().required("Type is required"),
+  //   projectTitle: Yup.string().test(
+  //     "projectTitle-required",
+  //     "Project title is required",
+  //     function (value) {
+  //       const { type } = this.parent;
+  //       if (type === "DevOps/Release Engineering") {
+  //         return value !== undefined && value !== "";
+  //       }
+  //       return true;
+  //     }
+  //   ),
+  //   category: Yup.string().required("Category is required"),
+  //   subcategory: Yup.string().required("Subcategory is required"),
+  //   subject: Yup.string().required("Subject is required"),
+  //   description: Yup.string().required("Description is required"),
+  //   priority: Yup.string().required("Priority is required"),
+  //   // sendemail: Yup.string().required("sendemail is required"),
+  // });
 
   const typeOptions = [
     "Administration Department",
@@ -80,7 +94,10 @@ const TicketDetails = () => {
     "IT Systems",
   ];
 
-  const projectOptions = ["Pearson_SMS Delevarage_2024"];
+  const projectOptions = [
+    "Pearson_LS_Common_FY 2024-25",
+    "Pearson_LMS MLM_2024",
+  ];
   const categoryOptions = {
     "Administration Department": [
       "Access Control",
@@ -366,7 +383,7 @@ const TicketDetails = () => {
       "Password Reset",
       "set account expiry date",
     ],
-    AnitiVirus: [
+    Antivirus: [
       "allow/file/applicaitons",
       "av defination update",
       "av install/reinstall",
@@ -546,7 +563,7 @@ const TicketDetails = () => {
         // alert("Ticket submitted successfully");
         toast.success("Ticket submitted successfully", {
           position: "top-center",
-          autoClose: 5000,
+          autoClose: 3000,
           // hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -561,7 +578,7 @@ const TicketDetails = () => {
         // alert("Failed to submit ticket");
         toast.error("Failed to submit ticket", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -632,7 +649,7 @@ const TicketDetails = () => {
                           setIsProjectTitle(true);
                         } else {
                           setIsProjectTitle(false);
-                          setFieldValue("projectTitle", ""); // Clear project title if type changes
+                          setFieldValue("projectTitle", "");
                           setShowProjectTitleError(false);
                         }
                       }}
@@ -687,7 +704,11 @@ const TicketDetails = () => {
                     md={4}
                     lg={4}
                     sx={{
-                      visibility: !isProjectTitle ? "Hidden" : "Visible",
+                      visibility: !isProjectTitle ? "hidden" : "visible",
+                      display: {
+                        xs: isProjectTitle ? "block" : "none",
+                        md: "block",
+                      },
                     }}
                   >
                     <label htmlFor="">
@@ -741,9 +762,9 @@ const TicketDetails = () => {
                         </MenuItem>
                       ))}
                     </Field>
-                    {showProjectTitleError && (
+                    {touched.projectTitle && errors.projectTitle && (
                       <Typography variant="caption" color="error">
-                        Please select a project title.
+                        {errors.projectTitle}
                       </Typography>
                     )}
                   </Grid>
@@ -883,6 +904,7 @@ const TicketDetails = () => {
                       fullWidth
                       name="subject"
                       variant="outlined"
+                      placeholder="Type here..."
                       sx={{
                         "& .MuiInputBase-input": {
                           cursor: "text",
@@ -1031,6 +1053,7 @@ const TicketDetails = () => {
                       </Typography>
                     )}
                   </Grid>
+
                   <Grid item xs={12} sm={6} md={5}>
                     <label htmlFor="">Attachment</label>
                     <input
@@ -1098,51 +1121,75 @@ const TicketDetails = () => {
                       </Alert>
                     )}
                   </Grid>
-                  {/* 
-                 <Grid item xs={12} sm={6} md={5}>
+
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={5}
+                    sx={{
+                      visibility: !isProjectTitle ? "hidden" : "visible",
+                      display: {
+                        xs: isProjectTitle ? "block" : "none",
+                        // md: "block",
+                      },
+                    }}
+                  >
                     <label htmlFor="">Send email copy to</label>
-                    <input
-                      id="file-upload"
-                      type="file"
-                      style={{ display: "none" }}
-                      onChange={(event) => {
-                        const file = event.target.files[0];
-                        if (file.size > 5 * 1024 * 1024) {
-                          setFileSizeError(true);
-                          setFieldValue("attachment", "");
-                        } else {
-                          setFileSizeError(false);
-                          setFieldValue("attachment", file ? file.name : "");
-                        }
-                      }}
-                    />
+
                     <Box sx={{ position: "relative" }}>
-                      <TicketDetailsTextField
+                      <Field
+                        as={TicketDetailsTextField}
                         fullWidth
+                        name="sendemail"
                         variant="outlined"
-                        value={
-                          values.attachment
-                            ? values.attachment.length > 20
-                              ? `${values.attachment.substring(0, 20)}...`
-                              : values.attachment
-                            : "No file chosen"
-                        }
-                        onClick={() =>
-                          document.getElementById("file-upload").click()
-                        }
-                        readOnly
+                        placeholder="Use semicolon for multiple email ID's"
                         sx={{
                           "& .MuiInputBase-input": {
-                            cursor: "pointer",
+                            cursor: "text",
+                          },
+
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor:
+                                touched.sendemail && errors.sendemail
+                                  ? "#f44336"
+                                  : touched.sendemail && !errors.sendemail
+                                  ? "#4caf50"
+                                  : touched.sendemail
+                                  ? "#2e5c9e61"
+                                  : "#e3e3e3",
+                            },
+                            "&:hover fieldset": {
+                              borderColor: "#e3e3e3",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor:
+                                touched.sendemail && errors.sendemail
+                                  ? "#d32f2f6e"
+                                  : touched.sendemail && !errors.sendemail
+                                  ? "#00800075"
+                                  : "#2e5c9e61",
+                              borderWidth: "3px",
+                            },
                           },
                         }}
                       />
                       <Tooltip
                         title={
                           <>
-                            - Supported file types: .JPG, .PNG, .pdf, .doc,
-                            .xlsx, .zip, .txt, .xls
-                            <br />- Maximum file size allowed is 5 Mb.
+                            - use only koli infotech domain email id's
+                            <br />- use semiclon(;) for mulitiple email id's
+                            <br />- email notification will be sent to the email
+                            ID's entered here when :
+                            <br />{" "}
+                            <ul>
+                              <li style={{ listStyle: "disc" }}>
+                                {" "}
+                                - The ticket is submitted
+                              </li>
+                              <li>- The ticket is closed</li>
+                            </ul>
                           </>
                         }
                         placement="top"
@@ -1160,13 +1207,12 @@ const TicketDetails = () => {
                         />
                       </Tooltip>
                     </Box>
-                    {fileSizeError && (
-                      <Alert severity="error">
-                        Maximum file size allowed is 5MB.
-                      </Alert>
+                    {touched.sendemail && errors.sendemail && (
+                      <Typography variant="caption" color="error">
+                        {errors.sendemail}
+                      </Typography>
                     )}
-                  </Grid> 
-                   */}
+                  </Grid>
                 </Grid>
               </Box>
               <Box

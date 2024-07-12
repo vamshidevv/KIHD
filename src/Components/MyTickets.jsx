@@ -61,8 +61,14 @@ const MyTickets = () => {
     axios
       .get("http://localhost:3000/ticketdetails")
       .then((response) => {
-        setTicketData(response.data);
-        console.log("get ticket data:", response.data);
+        // Map the response data to include id and RequestedDate
+        const mappedData = response.data.map((ticket) => ({
+          ...ticket,
+          ticketId: ticket.id,
+          requestedDate: ticket.RequestedDate,
+        }));
+        setTicketData(mappedData);
+        console.log("get ticket data:", mappedData);
       })
       .catch((error) => {
         console.error("Error getting ticket data:", error);
@@ -160,9 +166,7 @@ const MyTickets = () => {
                     fontWeight: "600",
                   }}
                 >
-                  {ticketData.length}
-                </span>{" "}
-                / {ticketData.length})
+               9/9</span>
               </Typography>
             </Grid>
           </Grid>
@@ -198,7 +202,7 @@ const MyTickets = () => {
                   <TableRow
                     role="checkbox"
                     tabIndex={-1}
-                    key={row.ticketId}
+                    key={row.ticketId} 
                     sx={{ "&:hover": { backgroundColor: "#f2f2f266" } }}
                   >
                     {columns.map((column) => {
