@@ -38,13 +38,14 @@ const MyTickets = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [status, setStatus] = useState("All");
   const [ticketData, setTicketData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+    setRowsPerPage(event.target.value);
     setPage(0);
   };
 
@@ -52,8 +53,12 @@ const MyTickets = () => {
     setStatus(event.target.value);
   };
 
-  const handleViewDetails = () => {
-    sessionStorage.setItem("canNavigate", "true");
+  const handleViewDetails = (ticket) => {
+    console.log("Ticket details:", ticket);
+
+    localStorage.setItem("viewTickets", JSON.stringify(ticket));
+    let viewTicket = JSON.parse(localStorage.getItem("viewTickets"));
+    console.log("viewTicket", viewTicket);
     navigate("/viewticketdetails");
   };
 
@@ -67,12 +72,22 @@ const MyTickets = () => {
           requestedDate: ticket.RequestedDate,
         }));
         setTicketData(mappedData);
-        console.log("get ticket data:", mappedData);
       })
       .catch((error) => {
         console.error("Error getting ticket data:", error);
       });
   }, []);
+
+  useEffect(() => {
+    const filtered =
+      status === "All"
+        ? ticketData
+        : ticketData.filter(
+            (ticket) => ticket.status.toLowerCase() === status.toLowerCase()
+          );
+
+    setFilteredData(filtered);
+  }, [status, ticketData]);
 
   return (
     <Box
@@ -169,11 +184,11 @@ const MyTickets = () => {
                     0,
                     Math.min(
                       rowsPerPage,
-                      ticketData.length - page * rowsPerPage
+                      filteredData.length - page * rowsPerPage
                     )
                   )}
                 </span>{" "}
-                / {ticketData.length})
+                / {filteredData.length})
               </Typography>
             </Grid>
           </Grid>
@@ -203,7 +218,7 @@ const MyTickets = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {ticketData
+              {filteredData
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <TableRow
@@ -229,7 +244,7 @@ const MyTickets = () => {
                               <IconButton aria-label="view" title="View Ticket">
                                 <VisibilityIcon
                                   sx={{ color: "#2e5c9e" }}
-                                  onClick={handleViewDetails}
+                                  onClick={() => handleViewDetails(row)}
                                 />
                               </IconButton>
                               <IconButton aria-label="duplicate" title="Clone">

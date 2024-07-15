@@ -246,6 +246,20 @@
       "sendemail": "",
       "RequestedDate": "Jul 12, 2024, 04:22 PM",
       "status": "open"
+    },
+    {
+      "id": "409e",
+      "type": "IT Systems",
+      "projectTitle": "",
+      "category": "Hardware",
+      "subcategory": "monitor display issue",
+      "subject": "request to change monitor display",
+      "description": "Het this side is vamshi,\nthe monitor of computer is get in trouble \nits need to be changed ASAP the display will not \nvisible proper.",
+      "priority": "High",
+      "attachment": "",
+      "sendemail": "",
+      "RequestedDate": "Jul 15, 2024, 10:36 AM",
+      "status": "closed"
     }
   ]
 }
