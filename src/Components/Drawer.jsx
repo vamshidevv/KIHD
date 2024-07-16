@@ -31,7 +31,7 @@ function ResponsiveDrawer({ window, children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(true);
-  const [username, setUsername] = useState(localStorage.getItem("username"));
+  const [username, setUsername] = useState(sessionStorage.getItem("username"));
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
   const [activeSection, setActiveSection] = useState("Dashboard");
 
@@ -40,7 +40,7 @@ function ResponsiveDrawer({ window, children }) {
       setIsLoading(false);
     }, 1000);
 
-    const username = localStorage.getItem("username");
+    const username = sessionStorage.getItem("username");
 
     if (!username) {
       navigate("/", { replace: true });

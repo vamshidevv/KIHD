@@ -54,11 +54,8 @@ const MyTickets = () => {
   };
 
   const handleViewDetails = (ticket) => {
-    console.log("Ticket details:", ticket);
-
     localStorage.setItem("viewTickets", JSON.stringify(ticket));
-    let viewTicket = JSON.parse(localStorage.getItem("viewTickets"));
-    console.log("viewTicket", viewTicket);
+    sessionStorage.setItem("canNavigate", "true");
     navigate("/viewticketdetails");
   };
 

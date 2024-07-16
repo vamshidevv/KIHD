@@ -44,6 +44,10 @@ function a11yProps(index) {
 }
 
 const ViewTicketDetails = () => {
+  const getData = JSON.parse(localStorage.getItem("viewTickets"));
+  const userContact = JSON.parse(sessionStorage.getItem("foundUser"));
+  console.log("get Data -> ", getData);
+
   useEffect(() => {
     return () => {
       sessionStorage.setItem("canNavigate", "false");
@@ -166,12 +170,12 @@ const ViewTicketDetails = () => {
             variant="h5"
             sx={{ color: "#474747", fontSize: "clamp(14px,2vw,18px)" }}
           >
-            Ticket ID: 131608 Status - Closed
+            Ticket ID: {getData.id} Status - {getData.status}
           </Typography>
           <Typography
             sx={{ color: "#808080", fontSize: "clamp(12px,2vw,12px)" }}
           >
-            Requested Date: 19-Jun-2024 09:59 AM
+            {getData.RequestedDate}
           </Typography>
         </Box>
 
@@ -201,13 +205,13 @@ const ViewTicketDetails = () => {
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={4}>
                     <Typography sx={labelStyle}>Employee Name:</Typography>
-                    <Typography sx={valueStyle}>Nihal Koli Manesh</Typography>
-                    <Typography sx={labelStyle}>Email Id:</Typography>
                     <Typography sx={valueStyle}>
-                      nihal.koli@excelindia.com
+                      {userContact.username}
                     </Typography>
+                    <Typography sx={labelStyle}>Email Id:</Typography>
+                    <Typography sx={valueStyle}>{userContact.email}</Typography>
                     <Typography sx={labelStyle}>Location:</Typography>
-                    <Typography sx={valueStyle}>MYSORE</Typography>
+                    <Typography sx={valueStyle}>{userContact.location}</Typography>
                   </Grid>
                   <Grid item xs={12} md={4}>
                     <Typography sx={labelStyle}>Employee Code:</Typography>
@@ -218,19 +222,19 @@ const ViewTicketDetails = () => {
                         marginBottom: "85px",
                       }}
                     >
-                      0009000021
+                      {userContact.empolyeecode}
                     </Typography>
                     <Typography sx={labelStyle}>Contact No:</Typography>
-                    <Typography sx={valueStyle}>9106330420</Typography>
+                    <Typography sx={valueStyle}>{userContact.contact}</Typography>
                   </Grid>
                   <Grid item xs={12} md={4}>
                     <Typography sx={labelStyle}>Designation:</Typography>
                     <Typography sx={valueStyle}>
-                      Senior Software Engineer
+                      {userContact.designation}
                     </Typography>
                     <Typography sx={labelStyle}>Department:</Typography>
                     <Typography sx={valueStyle}>
-                      Dept: Pearson Learning Services
+                      {userContact.department}
                     </Typography>
                   </Grid>
                 </Grid>

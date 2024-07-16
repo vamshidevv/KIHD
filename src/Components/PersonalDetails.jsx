@@ -33,7 +33,7 @@ const PersonalDetails = () => {
   console.log("userState", user);
 
   useEffect(() => {
-    const getUser = localStorage.getItem("foundUser");
+    const getUser = sessionStorage.getItem("foundUser");
     setUser(JSON.parse(getUser));
   }, []);
 
@@ -41,7 +41,6 @@ const PersonalDetails = () => {
     <>
       <Formik
         initialValues={initialValues}
-        // validationSchema={validationSchema}
         onSubmit={(values) => {
           console.log("Form data", values);
         }}
@@ -49,6 +48,7 @@ const PersonalDetails = () => {
         {({ handleChange, setFieldValue, values, errors, touched }) => (
           <Form>
             <Grid container spacing={8} pb={5}>
+
               {/* ========================= Personal Details Form ============================ */}
 
               <Grid item xs={12}>
@@ -223,6 +223,7 @@ const PersonalDetails = () => {
                           },
                         }}
                       />
+                      
                       {touched.contactNumber && errors.contactNumber && (
                         <Typography variant="caption" color="error">
                           {errors.contactNumber}
@@ -234,6 +235,7 @@ const PersonalDetails = () => {
               </Grid>
 
               {/* ========================= Ticket Details Form ============================ */}
+
               {/* 
              <Grid item xs={12}>
                     <Box

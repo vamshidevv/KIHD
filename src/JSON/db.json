@@ -260,6 +260,20 @@
       "sendemail": "",
       "RequestedDate": "Jul 15, 2024, 10:36 AM",
       "status": "closed"
+    },
+    {
+      "id": "c11f",
+      "type": "IT Systems",
+      "projectTitle": "",
+      "category": "Access Review",
+      "subcategory": "Admin Rights",
+      "subject": "Request For new admin password ",
+      "description": "Dear IT Help Desk Team,\ni hope this email finds you well ima writing to request assistance with resetting \nmy admin access password. the previous password has expired and ima unable to access the \nnecessary systems and tools required for my role.\n\ncould you kindly reset my admin access password and provide me with the new credentials.\n\nThank You very much for your attention  to this matter\n\nBest Regards,\nKendrick Lamar \n",
+      "priority": "Medium",
+      "attachment": "",
+      "sendemail": "",
+      "RequestedDate": "Jul 16, 2024, 10:50 AM",
+      "status": "open"
     }
   ]
 }

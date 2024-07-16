@@ -50,9 +50,9 @@ export default function SignIn() {
               user.password === values.password
           );
           if (foundUser) {
-            localStorage.setItem("username", foundUser.username);
+            sessionStorage.setItem("username", foundUser.username);
             console.log("---> ", foundUser);
-            localStorage.setItem("foundUser" , JSON.stringify(foundUser))
+            sessionStorage.setItem("foundUser" , JSON.stringify(foundUser))
             navigate("/dashboard");
           } else {
             setAlertMessage("Invalid Username and Password");
