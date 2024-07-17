@@ -274,6 +274,20 @@
       "sendemail": "",
       "RequestedDate": "Jul 16, 2024, 10:50 AM",
       "status": "open"
+    },
+    {
+      "id": "63d4",
+      "type": "IT Systems",
+      "projectTitle": "",
+      "category": "Internet",
+      "subcategory": "unable to download customer input",
+      "subject": "request access to download the customer input",
+      "description": "Dear IT Help Desk Team ,\niam unable to download the customer input for the past few days\ni attached a screenshort of the error so i hope  it will be resolved\n\nBest Regards,\nVamshi Bandari",
+      "priority": "Medium",
+      "attachment": "second.png",
+      "sendemail": "",
+      "RequestedDate": "Jul 17, 2024, 10:43 AM",
+      "status": "open"
     }
   ]
 }

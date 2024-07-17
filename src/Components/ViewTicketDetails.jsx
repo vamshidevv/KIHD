@@ -51,7 +51,7 @@ const ViewTicketDetails = () => {
   useEffect(() => {
     return () => {
       sessionStorage.setItem("canNavigate", "false");
-    };
+    }
   }, []);
 
   const [value, setValue] = React.useState(0);
@@ -71,6 +71,7 @@ const ViewTicketDetails = () => {
   const navigate = useNavigate();
 
   // Reusable style objects
+
   const sectionTitleStyle = {
     color: "#a2a2a2",
     fontSize: "15px",
@@ -131,6 +132,13 @@ const ViewTicketDetails = () => {
     padding: "0.8rem",
     fontWeight: "700",
     margin: "0 5px",
+  };
+
+  const openImage = () => {
+    if (getData.attachment) {
+      window.open(getData.attachment, "_blank");
+    }
+
   };
 
   return (
@@ -211,7 +219,9 @@ const ViewTicketDetails = () => {
                     <Typography sx={labelStyle}>Email Id:</Typography>
                     <Typography sx={valueStyle}>{userContact.email}</Typography>
                     <Typography sx={labelStyle}>Location:</Typography>
-                    <Typography sx={valueStyle}>{userContact.location}</Typography>
+                    <Typography sx={valueStyle}>
+                      {userContact.location}
+                    </Typography>
                   </Grid>
                   <Grid item xs={12} md={4}>
                     <Typography sx={labelStyle}>Employee Code:</Typography>
@@ -225,7 +235,9 @@ const ViewTicketDetails = () => {
                       {userContact.empolyeecode}
                     </Typography>
                     <Typography sx={labelStyle}>Contact No:</Typography>
-                    <Typography sx={valueStyle}>{userContact.contact}</Typography>
+                    <Typography sx={valueStyle}>
+                      {userContact.contact}
+                    </Typography>
                   </Grid>
                   <Grid item xs={12} md={4}>
                     <Typography sx={labelStyle}>Designation:</Typography>
@@ -257,7 +269,7 @@ const ViewTicketDetails = () => {
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={4}>
                     <Typography sx={labelStyle}>Division:</Typography>
-                    <Typography sx={valueStyle}>IT Systems</Typography>
+                    <Typography sx={valueStyle}>{getData.type}</Typography>
                     <Typography sx={labelStyle}>Assigned to:</Typography>
                     <Typography sx={valueStyle}>Priyanka M</Typography>
                     <Typography sx={labelStyle}>
@@ -278,7 +290,7 @@ const ViewTicketDetails = () => {
 
                   <Grid item xs={12} md={4}>
                     <Typography sx={labelStyle}>Category:</Typography>
-                    <Typography sx={valueStyle}>Access Review</Typography>
+                    <Typography sx={valueStyle}>{getData.category}</Typography>
                     <Typography sx={labelStyle}>
                       Priority by Submitter:
                     </Typography>
@@ -301,7 +313,9 @@ const ViewTicketDetails = () => {
                   </Grid>
                   <Grid item xs={12} md={4}>
                     <Typography sx={labelStyle}>Subcategory:</Typography>
-                    <Typography sx={valueStyle}>Admin Rights</Typography>
+                    <Typography sx={valueStyle}>
+                      {getData.subcategory}
+                    </Typography>
                     <Typography sx={labelStyle}>
                       Priority by Executor:
                     </Typography>
@@ -319,33 +333,34 @@ const ViewTicketDetails = () => {
                 </Grid>
                 <Grid item xs={12} md={12} lg={12}>
                   <Typography sx={labelStyle}>Subject:</Typography>
-                  <Typography sx={valueStyle}>
-                    Request for New Admin Access Password
-                  </Typography>
+                  <Typography sx={valueStyle}>{getData.subject}</Typography>
                   <Typography sx={labelStyle}>Description:</Typography>
-                  <Typography sx={valueStyle}>
-                    Dear IT Helpdesk Team,
-                  </Typography>
-                  <Typography sx={valueStyle}>
-                    I hope this email finds you well. I am writing to request
-                    assistance with resetting my admin access password. The
-                    previous password has expired, and I am unable to access the
-                    necessary systems and tools required for my role.
-                  </Typography>
-                  <Typography sx={valueStyle}>
-                    Could you kindly reset my admin access password and provide
-                    me with the new credentials.
-                  </Typography>
-                  <Typography sx={valueStyle}>Best regards,</Typography>
-                  <Typography sx={valueStyle}>Nihal Koli</Typography>
-                  <Typography sx={labelStyle}>Attachment:</Typography>
                   <Typography
-                    variant="body2"
-                    color="primary"
-                    sx={{ marginBottom: "20px" }}
+                    sx={{
+                      ...valueStyle,
+                      whiteSpace: "pre-wrap", // This preserves spaces and newlines
+                    }}
                   >
-                    Screenshot 2024-06-19 123240_131608_24504.png
+                    {getData.description}
                   </Typography>
+
+                  {getData.attachment === "" ? (
+                    ""
+                  ) : (
+                    <>
+                      {" "}
+                      <Typography sx={labelStyle}>Attachment:</Typography>
+                      <Typography
+                        variant="body2"
+                        color="primary"
+                        onClick={openImage}
+                        sx={{ marginBottom: "20px", cursor: "pointer" }}
+                      >
+                        {getData.attachment}
+                      </Typography>
+                    </>
+                  )}
+
                   <Typography sx={labelStyle}>Closing Remarks:</Typography>
                   <Typography sx={valueStyle}>
                     Admin reconciliation has been done. Hence closing the
