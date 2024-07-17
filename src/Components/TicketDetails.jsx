@@ -21,18 +21,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { validationSchema } from "./validationSchema";
 
-const initialValues = {
-  type: "",
-  projectTitle: "",
-  category: "",
-  subcategory: "",
-  subject: "",
-  description: "",
-  priority: "",
-  attachment: "",
-  sendemail: "",
-};
-
 const TicketDetailsTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
@@ -54,10 +42,23 @@ const TicketDetailsTextField = styled(TextField)({
 });
 
 const TicketDetails = () => {
+  const [initialValues, setInitialValues] = useState({
+    type: "",
+    projectTitle: "",
+    category: "",
+    subcategory: "",
+    subject: "",
+    description: "",
+    priority: "",
+    attachment: "",
+    sendemail: "",
+  });
+
   const [isProjectTitle, setIsProjectTitle] = useState(false);
   const [isDevOps, setIsDevOps] = useState(false);
   const [showProjectTitleError, setShowProjectTitleError] = useState(false);
   const [projectTitleTouched, setProjectTitleTouched] = useState(false);
+  const [ticketCloned, setTicketCloned] = useState(false);
 
   const [user, setUser] = useState({});
   const [isCategory, setIsCategory] = useState(true);
@@ -65,27 +66,6 @@ const TicketDetails = () => {
   const [selectedType, setSelectedType] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
-
-  // const validationSchema = Yup.object().shape({
-  //   type: Yup.string().required("Type is required"),
-  //   projectTitle: Yup.string().test(
-  //     "projectTitle-required",
-  //     "Project title is required",
-  //     function (value) {
-  //       const { type } = this.parent;
-  //       if (type === "DevOps/Release Engineering") {
-  //         return value !== undefined && value !== "";
-  //       }
-  //       return true;
-  //     }
-  //   ),
-  //   category: Yup.string().required("Category is required"),
-  //   subcategory: Yup.string().required("Subcategory is required"),
-  //   subject: Yup.string().required("Subject is required"),
-  //   description: Yup.string().required("Description is required"),
-  //   priority: Yup.string().required("Priority is required"),
-  //   // sendemail: Yup.string().required("sendemail is required"),
-  // });
 
   const typeOptions = [
     "Administration Department",
@@ -519,16 +499,28 @@ const TicketDetails = () => {
 
     // IT System ends here
   };
+  const clonedTicket = JSON.parse(sessionStorage.getItem("clonedTickets"));
 
-  useEffect(() => {
+  useEffect((event) => {
     const getUser = localStorage.getItem("foundUser");
     setUser(JSON.parse(getUser));
+    if (clonedTicket) {
+      setInitialValues(clonedTicket);
+      setTicketCloned(true);
+      setIsCategory(false);
+
+      console.log("cloned Ticket", clonedTicket);
+      console.log("intialValues", initialValues);
+    } else {
+      setInitialValues(initialValues);
+    }
   }, []);
 
   const [fileSizeError, setFileSizeError] = useState(false);
 
   const handleSubmit = (values, { resetForm, setSubmitting }) => {
     setSubmitting(true);
+
     // Custom validation for projectTitle
 
     const formatDateTime = (date) => {
@@ -634,6 +626,7 @@ const TicketDetails = () => {
                       select
                       fullWidth
                       name="type"
+                      value={ticketCloned === true ? clonedTicket.type : values.type}
                       variant="outlined"
                       onChange={(event) => {
                         setSelectedType(event.target.value);
@@ -682,6 +675,11 @@ const TicketDetails = () => {
                           },
                         },
                       }}
+                      // className={`custom-textfield ${
+                      //   touched.type && errors.type ? 'touched-error' : touched.type && !errors.type ? 'touched-success' : ''
+                      // } ${
+                      //   touched.type && errors.type ? 'focused-error' : touched.type && !errors.type ? 'focused-success' : ''
+                      // }`}
                     >
                       {typeOptions.map((option) => (
                         <MenuItem key={option} value={option}>
@@ -718,6 +716,7 @@ const TicketDetails = () => {
                       fullWidth
                       name="projectTitle"
                       variant="outlined"
+                      value={values.projectTitle}
                       onChange={(event) => {
                         setFieldValue("projectTitle", event.target.value);
                         setShowProjectTitleError(false);
@@ -780,6 +779,8 @@ const TicketDetails = () => {
                       fullWidth
                       name="category"
                       variant="outlined"
+                      // value={ticketCloned === true ? clonedTicket.category : ""}
+                      value={values.category}
                       disabled={isCategory}
                       onChange={(event) => {
                         setSelectedCategory(event.target.value);
@@ -818,6 +819,12 @@ const TicketDetails = () => {
                           },
                         },
                       }}
+
+                      // className={`custom-textfield ${
+                      //   touched.category && errors.category ? 'touched-error' : touched.category && !errors.category ? 'touched-success' : ''
+                      // } ${
+                      //   touched.category && errors.category ? 'focused-error' : touched.category && !errors.category ? 'focused-success' : ''
+                      // }`}
                     >
                       {selectedType &&
                         categoryOptions[selectedType].map((option) => (
@@ -841,6 +848,7 @@ const TicketDetails = () => {
                       select
                       fullWidth
                       name="subcategory"
+                      value={values.subcategory}
                       variant="outlined"
                       disabled={isSubCategory}
                       onChange={(event) => {
@@ -902,6 +910,7 @@ const TicketDetails = () => {
                       fullWidth
                       name="subject"
                       variant="outlined"
+                      value={ticketCloned === true ? clonedTicket.subject : values.subject}
                       placeholder="Type here..."
                       sx={{
                         "& .MuiInputBase-input": {
@@ -951,6 +960,9 @@ const TicketDetails = () => {
                       variant="outlined"
                       multiline
                       rows={4}
+                      value={
+                        ticketCloned === true ? clonedTicket.description : values.description
+                      }
                       style={{
                         width: "100%",
                         padding: "1px",
@@ -1002,6 +1014,7 @@ const TicketDetails = () => {
                       select
                       fullWidth
                       name="priority"
+                      value={ticketCloned === true ? clonedTicket.priority : values.priority}
                       variant="outlined"
                       onChange={(event) => {
                         handleChange(event);
@@ -1057,6 +1070,8 @@ const TicketDetails = () => {
                     <input
                       id="file-upload"
                       type="file"
+                      name="file"
+                      value={values.file}
                       style={{ display: "none" }}
                       onChange={(event) => {
                         const file = event.target.files[0];
@@ -1140,6 +1155,7 @@ const TicketDetails = () => {
                         as={TicketDetailsTextField}
                         fullWidth
                         name="sendemail"
+                        value={values.sendemail}
                         variant="outlined"
                         placeholder="Use semicolon for multiple email ID's"
                         sx={{

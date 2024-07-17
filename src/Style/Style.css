@@ -220,6 +220,41 @@ body {
   padding: 0 !important;
 }
 /* view ticket details css ends here */
+/* Define the styles for the MUI OutlinedInput-root */
+.custom-textfield .MuiOutlinedInput-root {
+  /* Define the default border color */
+  border-color: #e3e3e3;
+}
 
+.custom-textfield .MuiOutlinedInput-root:hover fieldset {
+  /* Define the border color on hover */
+  border-color: #e3e3e3;
+}
 
+.custom-textfield .MuiOutlinedInput-root.Mui-focused fieldset {
+  /* Define the border color when focused */
+  border-color: #2e5c9e61;
+  border-width: 3px;
+}
+
+/* Apply different border colors based on validation */
+.custom-textfield.touched-error .MuiOutlinedInput-root fieldset {
+  border-color: #f44336;
+}
+
+.custom-textfield.touched-success .MuiOutlinedInput-root fieldset {
+  border-color: #4caf50;
+}
+
+.custom-textfield.focused-error .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #d32f2f6e;
+  border-width: 3px;
+}
+
+.custom-textfield.focused-success .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #00800075;
+  border-width: 3px;
+}
+
+/* customer type css ends here  */
 

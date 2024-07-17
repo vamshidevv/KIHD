@@ -59,6 +59,12 @@ const MyTickets = () => {
     navigate("/viewticketdetails");
   };
 
+  const handleCloneDetails = (ticket) => {
+    sessionStorage.setItem("clonedTickets", JSON.stringify(ticket));
+    navigate("/submitticket", { state: { clonedTicket: ticket } });
+  };
+  
+
   useEffect(() => {
     axios
       .get("http://localhost:3000/ticketdetails")
@@ -244,7 +250,11 @@ const MyTickets = () => {
                                   onClick={() => handleViewDetails(row)}
                                 />
                               </IconButton>
-                              <IconButton aria-label="duplicate" title="Clone">
+                              <IconButton
+                                aria-label="duplicate"
+                                title="Clone"
+                                onClick={() => handleCloneDetails(row)}
+                              >
                                 <i
                                   className="far fa-clone"
                                   style={{ color: "#2e5c9e" }}

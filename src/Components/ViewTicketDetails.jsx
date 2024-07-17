@@ -51,7 +51,7 @@ const ViewTicketDetails = () => {
   useEffect(() => {
     return () => {
       sessionStorage.setItem("canNavigate", "false");
-    }
+    };
   }, []);
 
   const [value, setValue] = React.useState(0);
@@ -138,7 +138,6 @@ const ViewTicketDetails = () => {
     if (getData.attachment) {
       window.open(getData.attachment, "_blank");
     }
-
   };
 
   return (
@@ -353,9 +352,10 @@ const ViewTicketDetails = () => {
                       <Typography
                         variant="body2"
                         color="primary"
-                        onClick={openImage}
+                        // onClick={openImage}
                         sx={{ marginBottom: "20px", cursor: "pointer" }}
                       >
+                        {/* <img src= {getData.attachment} alt="attachment" height={150} width={150} /> */}
                         {getData.attachment}
                       </Typography>
                     </>

@@ -288,6 +288,34 @@
       "sendemail": "",
       "RequestedDate": "Jul 17, 2024, 10:43 AM",
       "status": "open"
+    },
+    {
+      "id": "c69a",
+      "type": "Administration Department",
+      "projectTitle": "",
+      "category": "Canteen",
+      "subcategory": "Cleanliness",
+      "subject": "request for cleanliness",
+      "description": " hey ",
+      "priority": "Medium",
+      "attachment": "seventh.png",
+      "sendemail": "",
+      "RequestedDate": "Jul 17, 2024, 02:12 PM",
+      "status": "closed"
+    },
+    {
+      "id": "d0ba",
+      "type": "Administration Department",
+      "projectTitle": "",
+      "category": "Maintenance",
+      "subcategory": "Light,Fan/AC not working",
+      "subject": "not working Light , Ac ",
+      "description": "Hello this is vamshi \nthe light ,ac is not working proper so its my reuest to \nsolve this problem ASAP\n\nBest Regards\nvamshi",
+      "priority": "Medium",
+      "attachment": "fifth.png",
+      "sendemail": "",
+      "RequestedDate": "Jul 17, 2024, 03:14 PM",
+      "status": "open"
     }
   ]
 }
