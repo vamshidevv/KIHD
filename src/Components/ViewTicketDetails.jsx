@@ -44,11 +44,21 @@ function a11yProps(index) {
 }
 
 const ViewTicketDetails = () => {
+  const [imageSrc, setImageSrc] = useState(null);
+
   const getData = JSON.parse(localStorage.getItem("viewTickets"));
   const userContact = JSON.parse(sessionStorage.getItem("foundUser"));
+
   console.log("get Data -> ", getData);
 
   useEffect(() => {
+    if (getData && getData.attachment) {
+      // Construct the full URL to the attachment
+      const fileUrl = `${process.env.REACT_APP_FILE_BASE_URL}/${getData.attachment}`;
+      setImageSrc(fileUrl);
+    } else {
+      console.error("No attachment found in the data");
+    }
     return () => {
       sessionStorage.setItem("canNavigate", "false");
     };
@@ -337,29 +347,36 @@ const ViewTicketDetails = () => {
                   <Typography
                     sx={{
                       ...valueStyle,
-                      whiteSpace: "pre-wrap", // This preserves spaces and newlines
+                      whiteSpace: "pre-wrap",
                     }}
                   >
                     {getData.description}
                   </Typography>
 
-                  {getData.attachment === "" ? (
-                    ""
-                  ) : (
-                    <>
-                      {" "}
-                      <Typography sx={labelStyle}>Attachment:</Typography>
+                  <div>
+                    <Typography sx={{ marginBottom: "20px" }}>
+                      Attachment:
+                    </Typography>
+                    {imageSrc ? (
                       <Typography
                         variant="body2"
                         color="primary"
-                        // onClick={openImage}
                         sx={{ marginBottom: "20px", cursor: "pointer" }}
                       >
-                        {/* <img src= {getData.attachment} alt="attachment" height={150} width={150} /> */}
-                        {getData.attachment}
+                        <img
+                          alt="not found"
+                          width={"250px"}
+                          src={imageSrc}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "path/to/placeholder/image.png"; // Fallback image
+                          }}
+                        />
                       </Typography>
-                    </>
-                  )}
+                    ) : (
+                      <Typography>No attachment available</Typography>
+                    )}
+                  </div>
 
                   <Typography sx={labelStyle}>Closing Remarks:</Typography>
                   <Typography sx={valueStyle}>

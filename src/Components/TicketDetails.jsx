@@ -55,6 +55,7 @@ const TicketDetails = () => {
   });
 
   const [isProjectTitle, setIsProjectTitle] = useState(false);
+  const [selectData, setIsSelect] = useState([]);
   const [isDevOps, setIsDevOps] = useState(false);
   const [showProjectTitleError, setShowProjectTitleError] = useState(false);
   const [projectTitleTouched, setProjectTitleTouched] = useState(false);
@@ -626,7 +627,9 @@ const TicketDetails = () => {
                       select
                       fullWidth
                       name="type"
-                      value={ticketCloned === true ? clonedTicket.type : values.type}
+                      value={
+                        ticketCloned === true ? clonedTicket.type : values.type
+                      }
                       variant="outlined"
                       onChange={(event) => {
                         setSelectedType(event.target.value);
@@ -649,37 +652,19 @@ const TicketDetails = () => {
                         renderValue: (value) =>
                           value === "" ? "--Select--" : value,
                       }}
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          "& fieldset": {
-                            borderColor:
-                              touched.type && errors.type
-                                ? "#f44336"
-                                : touched.type && !errors.type
-                                ? "#4caf50"
-                                : touched.type
-                                ? "#2e5c9e61"
-                                : "#e3e3e3",
-                          },
-                          "&:hover fieldset": {
-                            borderColor: "#e3e3e3",
-                          },
-                          "&.Mui-focused fieldset": {
-                            borderColor:
-                              touched.type && errors.type
-                                ? "#d32f2f6e"
-                                : touched.type && !errors.type
-                                ? "#00800075"
-                                : "#2e5c9e61",
-                            borderWidth: "3px",
-                          },
-                        },
-                      }}
-                      // className={`custom-textfield ${
-                      //   touched.type && errors.type ? 'touched-error' : touched.type && !errors.type ? 'touched-success' : ''
-                      // } ${
-                      //   touched.type && errors.type ? 'focused-error' : touched.type && !errors.type ? 'focused-success' : ''
-                      // }`}
+                      className={`custom-textfield ${
+                        touched.type && errors.type
+                          ? "touched-error"
+                          : touched.type && !errors.type
+                          ? "touched-success"
+                          : ""
+                      } ${
+                        touched.type && errors.type
+                          ? "focused-error"
+                          : touched.type && !errors.type
+                          ? "focused-success"
+                          : ""
+                      }`}
                     >
                       {typeOptions.map((option) => (
                         <MenuItem key={option} value={option}>
@@ -726,32 +711,19 @@ const TicketDetails = () => {
                         renderValue: (value) =>
                           value === "" ? "--Select--" : value,
                       }}
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          "& fieldset": {
-                            borderColor:
-                              touched.projectTitle && errors.projectTitle
-                                ? "#f44336"
-                                : touched.projectTitle && !errors.projectTitle
-                                ? "#4caf50"
-                                : touched.projectTitle
-                                ? "#2e5c9e61"
-                                : "#e3e3e3",
-                          },
-                          "&:hover fieldset": {
-                            borderColor: "#e3e3e3",
-                          },
-                          "&.Mui-focused fieldset": {
-                            borderColor:
-                              touched.projectTitle && errors.projectTitle
-                                ? "#d32f2f6e"
-                                : touched.projectTitle && !errors.projectTitle
-                                ? "#00800075"
-                                : "#2e5c9e61",
-                            borderWidth: "3px",
-                          },
-                        },
-                      }}
+                      className={`custom-textfield ${
+                        touched.projectTitle && errors.projectTitle
+                          ? "touched-error"
+                          : touched.projectTitle && !errors.projectTitle
+                          ? "touched-success"
+                          : ""
+                      } ${
+                        touched.projectTitle && errors.projectTitle
+                          ? "focused-error"
+                          : touched.projectTitle && !errors.projectTitle
+                          ? "focused-success"
+                          : ""
+                      }`}
                     >
                       {projectOptions.map((option) => (
                         <MenuItem key={option} value={option}>
@@ -793,38 +765,19 @@ const TicketDetails = () => {
                         renderValue: (value) =>
                           value === "" ? "--Select--" : value,
                       }}
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          "& fieldset": {
-                            borderColor:
-                              touched.category && errors.category
-                                ? "#f44336"
-                                : touched.category && !errors.category
-                                ? "#4caf50"
-                                : touched.category
-                                ? "#2e5c9e61"
-                                : "#e3e3e3",
-                          },
-                          "&:hover fieldset": {
-                            borderColor: "#e3e3e3",
-                          },
-                          "&.Mui-focused fieldset": {
-                            borderColor:
-                              touched.category && errors.category
-                                ? "#d32f2f6e"
-                                : touched.category && !errors.category
-                                ? "#00800075"
-                                : "#2e5c9e61",
-                            borderWidth: "3px",
-                          },
-                        },
-                      }}
-
-                      // className={`custom-textfield ${
-                      //   touched.category && errors.category ? 'touched-error' : touched.category && !errors.category ? 'touched-success' : ''
-                      // } ${
-                      //   touched.category && errors.category ? 'focused-error' : touched.category && !errors.category ? 'focused-success' : ''
-                      // }`}
+                      className={`custom-textfield ${
+                        touched.category && errors.category
+                          ? "touched-error"
+                          : touched.category && !errors.category
+                          ? "touched-success"
+                          : ""
+                      } ${
+                        touched.category && errors.category
+                          ? "focused-error"
+                          : touched.category && !errors.category
+                          ? "focused-success"
+                          : ""
+                      }`}
                     >
                       {selectedType &&
                         categoryOptions[selectedType].map((option) => (
@@ -860,32 +813,19 @@ const TicketDetails = () => {
                         renderValue: (value) =>
                           value === "" ? "--Select--" : value,
                       }}
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          "& fieldset": {
-                            borderColor:
-                              touched.subcategory && errors.subcategory
-                                ? "#f44336"
-                                : touched.subcategory && !errors.subcategory
-                                ? "#4caf50"
-                                : touched.subcategory
-                                ? "#2e5c9e61"
-                                : "#e3e3e3",
-                          },
-                          "&:hover fieldset": {
-                            borderColor: "#e3e3e3",
-                          },
-                          "&.Mui-focused fieldset": {
-                            borderColor:
-                              touched.subcategory && errors.subcategory
-                                ? "#d32f2f6e"
-                                : touched.subcategory && !errors.subcategory
-                                ? "#00800075"
-                                : "#2e5c9e61",
-                            borderWidth: "3px",
-                          },
-                        },
-                      }}
+                      className={`custom-textfield ${
+                        touched.subcategory && errors.subcategory
+                          ? "touched-error"
+                          : touched.subcategory && !errors.subcategory
+                          ? "touched-success"
+                          : ""
+                      } ${
+                        touched.subcategory && errors.subcategory
+                          ? "focused-error"
+                          : touched.subcategory && !errors.subcategory
+                          ? "focused-success"
+                          : ""
+                      }`}
                     >
                       {selectedCategory &&
                         subcategoryOptions[selectedCategory].map((option) => (
@@ -910,38 +850,26 @@ const TicketDetails = () => {
                       fullWidth
                       name="subject"
                       variant="outlined"
-                      value={ticketCloned === true ? clonedTicket.subject : values.subject}
+                      value={
+                        ticketCloned === true
+                          ? clonedTicket.subject
+                          : values.subject
+                      }
                       placeholder="Type here..."
-                      sx={{
-                        "& .MuiInputBase-input": {
-                          cursor: "text",
-                        },
-                        "& .MuiOutlinedInput-root": {
-                          "& fieldset": {
-                            borderColor:
-                              touched.subject && errors.subject
-                                ? "#f44336"
-                                : touched.subject && !errors.subject
-                                ? "#4caf50"
-                                : touched.subject
-                                ? "#2e5c9e61"
-                                : "#e3e3e3",
-                          },
-                          "&:hover fieldset": {
-                            borderColor: "#e3e3e3",
-                          },
-                          "&.Mui-focused fieldset": {
-                            borderColor:
-                              touched.subject && errors.subject
-                                ? "#d32f2f6e"
-                                : touched.subject && !errors.subject
-                                ? "#00800075"
-                                : "#2e5c9e61",
-                            borderWidth: "3px",
-                          },
-                        },
-                      }}
                       onChange={handleChange}
+                      className={`custom-textfield ${
+                        touched.subject && errors.subject
+                          ? "touched-error"
+                          : touched.subject && !errors.subject
+                          ? "touched-success"
+                          : ""
+                      } ${
+                        touched.subject && errors.subject
+                          ? "focused-error"
+                          : touched.subject && !errors.subject
+                          ? "focused-success"
+                          : ""
+                      }`}
                     />
                     {touched.subject && errors.subject && (
                       <Typography variant="caption" color="error">
@@ -961,7 +889,9 @@ const TicketDetails = () => {
                       multiline
                       rows={4}
                       value={
-                        ticketCloned === true ? clonedTicket.description : values.description
+                        ticketCloned === true
+                          ? clonedTicket.description
+                          : values.description
                       }
                       style={{
                         width: "100%",
@@ -971,32 +901,19 @@ const TicketDetails = () => {
                         borderColor: "#e3e3e3",
                       }}
                       onChange={handleChange}
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          "& fieldset": {
-                            borderColor:
-                              touched.description && errors.description
-                                ? "#f44336"
-                                : touched.description && !errors.description
-                                ? "#4caf50"
-                                : touched.description
-                                ? "#2e5c9e61"
-                                : "#e3e3e3",
-                          },
-                          "&:hover fieldset": {
-                            borderColor: "#e3e3e3",
-                          },
-                          "&.Mui-focused fieldset": {
-                            borderColor:
-                              touched.description && errors.description
-                                ? "#d32f2f6e"
-                                : touched.description && !errors.description
-                                ? "#00800075"
-                                : "#2e5c9e61",
-                            borderWidth: "3px",
-                          },
-                        },
-                      }}
+                      className={`custom-textfield ${
+                        touched.description && errors.description
+                          ? "touched-error"
+                          : touched.description && !errors.description
+                          ? "touched-success"
+                          : ""
+                      } ${
+                        touched.description && errors.description
+                          ? "focused-error"
+                          : touched.description && !errors.description
+                          ? "focused-success"
+                          : ""
+                      }`}
                     />
                     {touched.description && errors.description && (
                       <Typography variant="caption" color="error">
@@ -1014,7 +931,11 @@ const TicketDetails = () => {
                       select
                       fullWidth
                       name="priority"
-                      value={ticketCloned === true ? clonedTicket.priority : values.priority}
+                      value={
+                        ticketCloned === true
+                          ? clonedTicket.priority
+                          : values.priority
+                      }
                       variant="outlined"
                       onChange={(event) => {
                         handleChange(event);
@@ -1025,32 +946,19 @@ const TicketDetails = () => {
                         renderValue: (value) =>
                           value === "" ? "--Select--" : value,
                       }}
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          "& fieldset": {
-                            borderColor:
-                              touched.priority && errors.priority
-                                ? "#f44336"
-                                : touched.priority && !errors.priority
-                                ? "#4caf50"
-                                : touched.priority
-                                ? "#2e5c9e61"
-                                : "#e3e3e3",
-                          },
-                          "&:hover fieldset": {
-                            borderColor: "#e3e3e3",
-                          },
-                          "&.Mui-focused fieldset": {
-                            borderColor:
-                              touched.priority && errors.priority
-                                ? "#d32f2f6e"
-                                : touched.priority && !errors.priority
-                                ? "#00800075"
-                                : "#2e5c9e61",
-                            borderWidth: "3px",
-                          },
-                        },
-                      }}
+                      className={`custom-textfield ${
+                        touched.priority && errors.priority
+                          ? "touched-error"
+                          : touched.priority && !errors.priority
+                          ? "touched-success"
+                          : ""
+                      } ${
+                        touched.priority && errors.priority
+                          ? "focused-error"
+                          : touched.priority && !errors.priority
+                          ? "focused-success"
+                          : ""
+                      }`}
                     >
                       <MenuItem value="">--Select--</MenuItem>
                       <MenuItem value="High">P1 - Critical</MenuItem>
@@ -1158,37 +1066,25 @@ const TicketDetails = () => {
                         value={values.sendemail}
                         variant="outlined"
                         placeholder="Use semicolon for multiple email ID's"
-                        sx={{
-                          "& .MuiInputBase-input": {
-                            cursor: "text",
-                          },
-
-                          "& .MuiOutlinedInput-root": {
-                            "& fieldset": {
-                              borderColor:
-                                touched.sendemail && errors.sendemail
-                                  ? "#f44336"
-                                  : touched.sendemail && !errors.sendemail
-                                  ? "#4caf50"
-                                  : touched.sendemail
-                                  ? "#2e5c9e61"
-                                  : "#e3e3e3",
-                            },
-                            "&:hover fieldset": {
-                              borderColor: "#e3e3e3",
-                            },
-                            "&.Mui-focused fieldset": {
-                              borderColor:
-                                touched.sendemail && errors.sendemail
-                                  ? "#d32f2f6e"
-                                  : touched.sendemail && !errors.sendemail
-                                  ? "#00800075"
-                                  : "#2e5c9e61",
-                              borderWidth: "3px",
-                            },
-                          },
-                        }}
+                        className={`custom-textfield ${
+                          touched.sendemail && errors.sendemail
+                            ? "touched-error"
+                            : touched.sendemail && !errors.sendemail
+                            ? "touched-success"
+                            : ""
+                        } ${
+                          touched.sendemail && errors.sendemail
+                            ? "focused-error"
+                            : touched.sendemail && !errors.sendemail
+                            ? "focused-success"
+                            : ""
+                        }`}
                       />
+                      {touched.sendemail && errors.sendemail && (
+                        <Typography variant="caption" color="error">
+                          {errors.sendemail}
+                        </Typography>
+                      )}
                       <Tooltip
                         title={
                           <>
